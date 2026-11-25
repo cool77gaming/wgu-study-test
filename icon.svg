@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="DNA helix">
+  <rect width="512" height="512" fill="#002F5F"/>
+  <g fill="none" stroke-linecap="round">
+    <g stroke="#7dd3fc" stroke-width="10" opacity="0.9">
+      <path d="M196 156H316"/><path d="M204 192H308"/>
+      <path d="M204 320H308"/><path d="M196 356H316"/>
+    </g>
+    <path d="M186 118C186 190 326 200 326 256S186 322 186 394" stroke="#ffffff" stroke-width="22"/>
+    <path d="M326 118C326 190 186 200 186 256S326 322 326 394" stroke="#34d399" stroke-width="22"/>
+  </g>
+</svg>

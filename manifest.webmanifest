@@ -1,0 +1,14 @@
+{
+  "name": "WGU C190 Introduction to Biology — Mock OA",
+  "short_name": "C190 Mock OA",
+  "description": "70-question WGU C190 Introduction to Biology mock Objective Assessment with spaced repetition and automatic progress saving.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#002F5F",
+  "theme_color": "#002F5F",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

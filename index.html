@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free 70-question WGU C190 Introduction to Biology mock Objective Assessment with instant feedback, spaced repetition and automatic progress saving." />
+  <meta name="theme-color" content="#002F5F" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <title>WGU C190 Introduction to Biology — 2026 Mock OA (70 Questions)</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+    .hidden { display: none !important; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: #002F5F;
+      color: #ffffff;
+      border-bottom: 1px solid #001f3f;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    .topbar-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 46px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .brand-badge {
+      background: rgba(255,255,255,0.16);
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    .brand-title {
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hud-controls { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .timer-pill {
+      background: rgba(15,23,42,0.55);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .timer-warn { color: #fcd34d; }
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.15s, border-color 0.15s, opacity 0.15s;
+      font-family: inherit;
+    }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-sm { padding: 5px 10px; font-size: 12px; border-radius: 6px; }
+    .btn-nav { background: rgba(255,255,255,0.16); color: #fff; }
+    .btn-nav:hover { background: rgba(255,255,255,0.26); }
+    .btn-primary { background: #002F5F; color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: #004080; }
+    .btn-success { background: #059669; color: #fff; }
+    .btn-success:hover:not(:disabled) { background: #047857; }
+    .btn-amber { background: #d97706; color: #fff; }
+    .btn-amber:hover:not(:disabled) { background: #b45309; }
+    .btn-outline { background: #fff; color: #334155; border-color: #cbd5e1; }
+    .btn-outline:hover:not(:disabled) { background: #f8fafc; }
+    .btn-flagged { background: #fffbeb; color: #92400e; border-color: #fbbf24; }
+
+    main {
+      flex: 1;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 14px 40px;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(15,23,42,0.05);
+      padding: 22px;
+    }
+    .stack-md > * + * { margin-top: 16px; }
+    .stack-sm > * + * { margin-top: 10px; }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #002F5F;
+    }
+    h1 { margin: 4px 0 6px; font-size: 22px; font-weight: 800; line-height: 1.25; }
+    h2 { margin: 0; font-size: 18px; font-weight: 800; }
+    h3 { margin: 0; font-size: 16px; font-weight: 800; }
+    .muted { color: #475569; font-size: 14px; margin: 0; }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    @media (max-width: 640px) {
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 16px; }
+    }
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .stat-label { font-size: 12px; font-weight: 600; color: #64748b; }
+    .stat-val { font-size: 19px; font-weight: 800; color: #0f172a; margin-top: 2px; }
+    .stat-sub { font-size: 12px; color: #64748b; }
+    .stat-amber { background: #fffbeb; border-color: #fde68a; }
+    .stat-amber .stat-label { color: #92400e; }
+    .stat-amber .stat-val { color: #78350f; }
+    .stat-rose { background: #fff1f2; border-color: #fecdd3; }
+    .stat-rose .stat-label { color: #9f1239; }
+    .stat-rose .stat-val { color: #881337; }
+
+    .bp-row {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .settings-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px;
+    }
+    .check-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .check-label input { width: 16px; height: 16px; accent-color: #002F5F; }
+
+    .progress-strip {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .q-prompt {
+      font-size: 16px;
+      font-weight: 500;
+      color: #0f172a;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .opt-btn {
+      width: 100%;
+      text-align: left;
+      padding: 13px 15px;
+      border-radius: 9px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.12s, background-color 0.12s;
+    }
+    .opt-btn:hover { border-color: #002F5F; background: #f8fafc; }
+    .opt-btn.selected { border-color: #002F5F; background: #eff6ff; box-shadow: inset 0 0 0 1px #002F5F; }
+    .opt-btn.correct { border-color: #10b981; background: #ecfdf5; }
+    .opt-btn.trap { border-color: #f59e0b; background: #fffbeb; }
+    .opt-btn.wrong { border-color: #f43f5e; background: #fff1f2; }
+    .opt-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .opt-btn.selected .opt-letter { background: #002F5F; color: #fff; border-color: #002F5F; }
+    .opt-text { font-size: 15px; font-weight: 500; color: #0f172a; line-height: 1.45; }
+
+    .feedback-box {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid;
+      font-size: 13.5px;
+    }
+    .fb-ok { background: #ecfdf5; border-color: #a7f3d0; color: #064e3b; }
+    .fb-trap { background: #fffbeb; border-color: #fcd34d; color: #78350f; }
+    .fb-err { background: #fff1f2; border-color: #fecdd3; color: #881337; }
+
+    .footer-nav {
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(15, 23, 42, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-panel {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15);
+      padding: 20px;
+      width: 100%;
+      max-width: 640px;
+    }
+    .modal-panel.narrow { max-width: 420px; }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(10, minmax(0, 1fr));
+      gap: 6px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding: 4px 2px;
+    }
+    @media (max-width: 640px) { .nav-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+    .nav-cell {
+      padding: 7px 0;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .nav-cell.ans { background: #002F5F; color: #fff; border-color: #002F5F; }
+    .nav-cell.flag { background: #fef3c7; color: #92400e; border-color: #fbbf24; }
+    .nav-cell.cur { outline: 2px solid #10b981; outline-offset: 1px; }
+
+    .bar-track { width: 100%; height: 10px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; }
+    .bg-green { background: #059669; }
+    .bg-amber { background: #d97706; }
+    .bg-red { background: #e11d48; }
+
+    .filter-pill {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #f1f5f9;
+      color: #334155;
+    }
+    .filter-pill.active { background: #002F5F; color: #fff; }
+    .review-item {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 13.5px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .badge-green { background: #d1fae5; color: #065f46; }
+    .badge-amber { background: #fef3c7; color: #92400e; }
+    .badge-red { background: #ffe4e6; color: #9f1239; }
+    .q-word {
+      display: inline;
+      transition: background-color 0.12s ease, color 0.15s ease;
+      border-radius: 4px;
+      padding: 0 2px;
+    }
+    .q-word.concealed {
+      color: transparent !important;
+      background: #e2e8f0;
+      user-select: none;
+    }
+    .q-word.speaking {
+      color: #0f172a;
+      background: #fde047;
+      font-weight: 700;
+    }
+    .q-word.revealed {
+      color: #0f172a;
+      background: transparent;
+    }
+    .audio-bar {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+    }
+    .audio-select {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #fff;
+      color: #0f172a;
+    }
+    .booster-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    @media (max-width: 640px) { .booster-grid { grid-template-columns: 1fr; } }
+    .conf-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+    .conf-pill {
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: #334155;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .conf-pill.active-guess { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+    .conf-pill.active-shaky { background: #e0f2fe; border-color: #0284c7; color: #075985; }
+    .conf-pill.active-sure  { background: #d1fae5; border-color: #10b981; color: #065f46; }
+    .blind-gate {
+      border: 1px dashed #94a3b8;
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+    .recall-input {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      margin: 8px 0;
+    }
+    .cue-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+    .elab-box {
+      background: #faf5ff;
+      border: 1px solid #d8b4fe;
+      color: #581c87;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+    kbd {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 11px;
+      font-family: ui-monospace, monospace;
+    }
+
+    /* ---- Resume / pause / toast additions ---- */
+    button.timer-pill { color: #fff; cursor: pointer; appearance: none; -webkit-appearance: none; }
+    button.timer-pill:hover { background: rgba(15,23,42,0.75); }
+    button.timer-pill.timer-warn { color: #fcd34d; }
+    :focus-visible { outline: 2px solid #0284c7; outline-offset: 2px; }
+    .pause-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      background: #0f172a;               /* fully opaque: the question must not be readable while paused */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .pause-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .pause-stats .stat-box { padding: 8px 10px; text-align: center; }
+    .pause-stats .stat-val { font-size: 17px; }
+    .toast-host {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 14px;
+      z-index: 80;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      pointer-events: none;
+    }
+    .toast {
+      background: #0f172a;
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      max-width: 520px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .toast.out { opacity: 0; transform: translateY(6px); }
+    .save-ok { color: #047857; }
+    .save-bad { color: #b91c1c; }
+    .banner-warn {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      color: #78350f;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    /* On phones the exam controls need the room: the title would be squeezed to "I.." anyway. */
+    @media (max-width: 520px) {
+      .topbar-inner:has(#examHudControls:not(.hidden)) .brand-title { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="topBar" class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-badge">WGU C190</span>
+        <span class="brand-title">Introduction to Biology — 2026 Mock OA (70 Questions)</span>
+      </div>
+      <div id="examHudControls" class="hidden hud-controls">
+        <button id="timerDisplay" type="button" class="timer-pill" title="Pause exam" aria-label="Pause exam">120:00</button>
+        <button id="btnOpenNav" class="btn btn-sm btn-nav">Grid (<span id="navAnsweredCount">0</span>/70)</button>
+        <button id="btnSubmitTop" class="btn btn-sm btn-success">Submit</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <noscript><div class="banner-warn">This mock exam needs JavaScript. Please enable it and reload the page.</div></noscript>
+    <div id="storageBanner" class="hidden banner-warn" style="max-width:760px;margin:0 auto 12px;" role="alert"></div>
+
+    <!-- SCREEN 1: START -->
+    <section id="viewStart" class="card stack-md" style="max-width:760px;margin:0 auto;">
+      <div>
+        <div class="eyebrow">2026 Objective Assessment Simulator • 100% Offline HTML</div>
+        <h1>WGU C190 Introduction to Biology — 70-Question Mock Exam</h1>
+        <p class="muted">Text-only mock exam with zero pictures. Every question includes a deliberate confuser choice designed to test for common biology misconceptions.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="stat-box"><div class="stat-label">Questions</div><div class="stat-val">70</div><div class="stat-sub">14 per competency</div></div>
+        <div class="stat-box"><div class="stat-label">Standard OA Time</div><div class="stat-val">120 Min</div><div class="stat-sub">Timed or untimed</div></div>
+        <div class="stat-box"><div class="stat-label">Competencies</div><div class="stat-val">5 Domains</div><div class="stat-sub">119.2.1 – 119.2.5</div></div>
+      </div>
+
+      <div class="stack-sm">
+        <div class="eyebrow">Exam Blueprint Coverage</div>
+        <div class="grid-2">
+          <div class="bp-row"><span>119.2.1 Living Organisms</span><span>14 Qs</span></div>
+          <div class="bp-row"><span>119.2.2 Chemistry</span><span>14 Qs</span></div>
+          <div class="bp-row"><span>119.2.3 Cells</span><span>14 Qs</span></div>
+          <div class="bp-row"><span>119.2.4 Organisms &amp; Environments</span><span>14 Qs</span></div>
+          <div class="bp-row" style="grid-column:1 / -1;"><span>119.2.5 Genetics</span><span>14 Qs</span></div>
+        </div>
+      </div>
+
+      <div class="settings-box stack-sm">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;">
+          <div class="eyebrow">Exam Settings &amp; Memory Boosters</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">
+            <button id="btnToggleAllBoosters" type="button" class="btn btn-sm btn-primary">Turn All Memory Boosters ON</button>
+            <span id="leitnerDueBadge" class="tag" style="background:#fffbeb;border-color:#fde68a;color:#92400e;">Leitner Due: 70</span>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+          <label class="check-label"><input type="checkbox" id="optTimed" checked /><span>120-Minute OA Timer</span></label>
+          <label style="font-size:12px;font-weight:700;color:#334155;display:flex;align-items:center;gap:6px;">
+            <span>Session Size:</span>
+            <select id="optSessionSize" class="audio-select">
+              <option value="70" selected>Full OA (70 Questions)</option>
+              <option value="10">Micro-Sprint (10 Qs)</option>
+              <option value="15">Micro-Sprint (15 Qs)</option>
+              <option value="35">Half OA (35 Qs)</option>
+              <option value="due">Leitner Due Today Only</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="booster-grid" style="padding-top:8px;border-top:1px solid #e2e8f0;">
+          <label class="check-label"><input type="checkbox" class="booster-chk" id="optMicroSprint" /><span>Micro-Sprint Mode (Defaults to 15 Qs)</span></label>
+          <label class="check-label"><input type="checkbox" class="booster-chk" id="optBlindRecall" /><span>Blind Recall Gate (Hide A–D First)</span></label>
+          <label class="check-label"><input type="checkbox" class="booster-chk" id="optConfidence" /><span>Confidence Rating (Hypercorrection)</span></label>
+          <label class="check-label"><input type="checkbox" class="booster-chk" id="optElaboration" /><span>"Why Was Trap Wrong?" Check</span></label>
+          <label class="check-label"><input type="checkbox" class="booster-chk" id="optRequeue" /><span>Same-Session Re-Queue (+3 Qs on Miss)</span></label>
+          <label class="check-label"><input type="checkbox" class="booster-chk" id="optLeitner" /><span>Multi-Day Leitner Spaced Repetition</span></label>
+          <label class="check-label" style="grid-column:1 / -1;"><input type="checkbox" class="booster-chk" id="optPictureCue" /><span>"Picture This" Concrete Dual-Coding Memory Cues</span></label>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-top:8px;border-top:1px solid #e2e8f0;">
+          <label class="check-label"><input type="checkbox" id="optNeuralReader" checked /><span>Piper Neural AI Reader (Conceal Words Until Spoken)</span></label>
+          <label style="font-size:12px;font-weight:600;color:#475569;display:flex;align-items:center;gap:6px;">
+            <span>Voice:</span>
+            <select id="optPiperVoice" class="audio-select">
+              <option value="en_US-hfc_female-medium" selected>HFC Female (Clear Studio)</option>
+              <option value="en_US-amy-medium">Amy (Warm Natural)</option>
+              <option value="en_US-lessac-medium">Lessac (Calm Narrator)</option>
+              <option value="en_US-ryan-medium">Ryan (Clear Male)</option>
+            </select>
+          </label>
+          <label style="font-size:12px;font-weight:600;color:#475569;display:flex;align-items:center;gap:6px;">
+            <span>Pace:</span>
+            <select id="optPiperPace" class="audio-select">
+              <option value="0.80">0.80x (Extra Slow)</option>
+              <option value="0.88" selected>0.88x (Clear &amp; Calm)</option>
+              <option value="0.96">0.96x (Natural)</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
+        <span style="font-size:12px;color:#64748b;">Shortcuts: <kbd>1–4</kbd> or <kbd>A–D</kbd> to answer, <kbd>&larr;</kbd> / <kbd>&rarr;</kbd> to move.</span>
+        <button id="btnStartExam" class="btn btn-primary">Begin 70-Question Mock Exam</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: EXAM -->
+    <section id="viewExam" class="hidden stack-md" style="max-width:760px;margin:0 auto;">
+      <div class="progress-strip">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <span id="examQNumber" style="font-size:14px;font-weight:800;color:#002F5F;">Question 1 of 70</span>
+          <span id="examCategoryTag" class="tag">119.2.1 · Living Organisms</span>
+          <span id="examLeitnerTag" class="hidden tag" style="background:#eff6ff;border-color:#bfdbfe;color:#1e3a8a;">Box 1</span>
+          <span id="examRequeueTag" class="hidden tag" style="background:#fff1f2;border-color:#fecdd3;color:#9f1239;">Recovery Re-Check</span>
+        </div>
+        <button id="btnFlagQuestion" class="btn btn-sm btn-outline">Bookmark for Review</button>
+      </div>
+
+      <div class="card stack-md">
+        <audio id="piperAudioPlayer" preload="auto" class="hidden"></audio>
+        <div id="piperBar" class="hidden audio-bar">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span id="piperStatus" style="font-weight:700;color:#002F5F;">Initializing Piper Neural Voice...</span>
+            <select id="livePiperVoice" class="audio-select" aria-label="Neural voice">
+              <option value="en_US-hfc_female-medium" selected>HFC Female</option>
+              <option value="en_US-amy-medium">Amy</option>
+              <option value="en_US-lessac-medium">Lessac</option>
+              <option value="en_US-ryan-medium">Ryan</option>
+            </select>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button id="btnPiperPlayPause" type="button" class="btn btn-sm btn-outline">Pause</button>
+            <button id="btnPiperReplay" type="button" class="btn btn-sm btn-outline">Replay</button>
+            <button id="btnRevealAll" type="button" class="btn btn-sm btn-primary">Show Full Text</button>
+          </div>
+        </div>
+        <div id="cladogramDiagramBox" class="hidden" style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:10px;"></div>
+        <p id="examQuestionText" class="q-prompt"></p>
+
+        <!-- Confidence Rating (Hypercorrection) -->
+        <div id="confidenceRow" class="hidden conf-row">
+          <span style="font-weight:700;color:#334155;">How sure are you?</span>
+          <button type="button" data-conf="guess" class="conf-pill">Guessing</button>
+          <button type="button" data-conf="shaky" class="conf-pill">Shaky</button>
+          <button type="button" data-conf="sure" class="conf-pill">Sure</button>
+        </div>
+
+        <!-- Blind Recall Gate (Enforced 8s after speech / 10s silent, or type keyword to unlock) -->
+        <div id="blindRecallGate" class="hidden blind-gate">
+          <div style="font-size:13px;font-weight:700;color:#0f172a;">Active Recall Check: Try to answer from memory before seeing A–D</div>
+          <input id="blindRecallInput" type="text" class="recall-input" placeholder="Type a keyword from memory to unlock early, or wait for the timer..." />
+          <button id="btnRevealChoices" type="button" class="btn btn-primary btn-sm" disabled>Think &amp; Recall (10s)...</button>
+        </div>
+
+        <div id="examOptionsList" class="stack-sm"></div>
+        <div id="instantFeedbackBox" class="hidden feedback-box stack-sm"></div>
+        <div class="footer-nav">
+          <button id="btnPrevQ" class="btn btn-outline">&larr; Previous</button>
+          <span style="font-size:12px;color:#64748b;font-weight:600;text-align:center;"><span id="examAnsweredCounter">0</span> of <span id="examTotalCounter">70</span> answered<br /><span id="saveStatus" aria-live="polite"></span></span>
+          <button id="btnNextQ" class="btn btn-primary">Next &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVIGATOR MODAL -->
+    <div id="navModal" class="hidden modal-backdrop">
+      <div class="modal-panel stack-md">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <h2>Question Navigator (1–70)</h2>
+          <button id="btnCloseNav" class="btn btn-sm btn-outline">Close</button>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#475569;font-weight:600;">
+          <span>Dark Blue = Answered</span>
+          <span>Yellow = Bookmarked</span>
+          <span>Gray = Unanswered</span>
+        </div>
+        <div id="navGrid" class="nav-grid"></div>
+        <div style="display:flex;justify-content:flex-end;padding-top:10px;border-top:1px solid #f1f5f9;">
+          <button id="btnModalSubmit" class="btn btn-success">Submit Exam Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIRM MODAL -->
+    <div id="confirmModal" class="hidden modal-backdrop">
+      <div class="modal-panel narrow stack-md">
+        <h2>Submit Mock Exam?</h2>
+        <p id="confirmMessage" class="muted"></p>
+        <div style="display:flex;justify-content:flex-end;gap:8px;">
+          <button id="btnCancelSubmit" class="btn btn-outline">Return to Exam</button>
+          <button id="btnConfirmSubmit" class="btn btn-success">Grade My Exam</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: RESULTS -->
+    <section id="viewResults" class="hidden stack-md">
+      <div class="card stack-md">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:16px;padding-bottom:14px;border-bottom:1px solid #f1f5f9;">
+          <div>
+            <div class="eyebrow">WGU C190 Mock OA Coaching Report</div>
+            <h2 id="resHeadline" style="font-size:22px;margin-top:4px;">Exam Complete</h2>
+            <p id="resSubline" class="muted" style="margin-top:2px;"></p>
+            <p id="resSavedNote" class="muted" style="margin-top:2px;font-size:12px;"></p>
+          </div>
+          <div style="text-align:right;">
+            <div id="resPercent" style="font-size:30px;font-weight:800;color:#002F5F;">0%</div>
+            <div id="resRawScore" style="font-size:12px;font-weight:600;color:#64748b;">0 / 70 Correct</div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="stat-box"><div class="stat-label">Time Elapsed</div><div id="resTimeUsed" class="stat-val">0m 0s</div></div>
+          <div class="stat-box stat-amber"><div class="stat-label">Confuser Traps Picked</div><div id="resTrapsCount" class="stat-val">0</div></div>
+          <div class="stat-box stat-rose"><div class="stat-label">Confidently Wrong (Priority)</div><div id="resHighConfWrong" class="stat-val">0</div></div>
+        </div>
+
+        <div class="stack-sm">
+          <div class="eyebrow">Competency Breakdown (119.2.1 – 119.2.5)</div>
+          <div id="resCompetencyBars" class="stack-sm"></div>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <button id="btnRetakeMissed" class="hidden btn btn-amber">Retake Missed Questions (<span id="retakeMissedNum">0</span>)</button>
+          <button id="btnRetakeAll" class="btn btn-primary">Start New 70-Question Attempt</button>
+        </div>
+      </div>
+
+      <div class="card stack-md">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;">
+          <h3>Detailed Question &amp; Confuser-Trap Review</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;" id="reviewFilters">
+            <button data-rfilter="all" class="filter-pill active">All</button>
+            <button data-rfilter="missed" class="filter-pill">Missed</button>
+            <button data-rfilter="traps" class="filter-pill">Confuser Traps</button>
+            <button data-rfilter="flagged" class="filter-pill">Bookmarked</button>
+          </div>
+        </div>
+        <div id="reviewList" class="stack-sm"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- PAUSE / WELCOME-BACK OVERLAY (outside <main> so main can be made inert while it is open) -->
+  <div id="pauseModal" class="hidden pause-backdrop" role="dialog" aria-modal="true" aria-labelledby="pauseTitle" aria-describedby="pauseBody">
+    <div class="modal-panel narrow stack-md">
+      <div class="eyebrow">Exam paused</div>
+      <h2 id="pauseTitle">Welcome back</h2>
+      <p id="pauseBody" class="muted"></p>
+      <div id="pauseStats" class="pause-stats"></div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;">
+        <button id="btnDiscardAttempt" type="button" class="btn btn-outline">Discard attempt</button>
+        <button id="btnResumeExam" type="button" class="btn btn-primary">Resume exam</button>
+      </div>
+    </div>
+  </div>
+  <div id="toastHost" class="toast-host" role="status" aria-live="polite"></div>
+
+  <script>
+    const COMPETENCIES = [
+      { id: "119.2.1", name: "Living Organisms" },
+      { id: "119.2.2", name: "Chemistry" },
+      { id: "119.2.3", name: "Cells" },
+      { id: "119.2.4", name: "Organisms & Environments" },
+      { id: "119.2.5", name: "Genetics" }
+    ];
+
+    const BANK_70 = [{"id": 1, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "A marine biologist collects a microscopic sample from a deep-sea hydrothermal vent. Under magnification, the sample reveals particles composed of a protein shell surrounding a strand of RNA. When placed in a sterile nutrient broth, the particles do not grow, consume energy, or divide. However, when introduced into a culture of vent bacteria, the particles attach to the bacterial cells, inject their RNA, and hijack the host machinery to assemble hundreds of identical particles. Based on the characteristics of life, how should these particles be classified?", "correct": "Non-living viruses", "trap": "Prokaryotic archaea", "randoms": ["Unicellular protists", "Photosynthetic bacteria"], "explanation": "Viruses lack cellular structure, cannot carry out metabolism independently, and require a host cell to replicate.", "hack": "No cells + no solo metabolism + needs a host to copy = NON-LIVING VIRUS!"}, {"id": 2, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "A researcher is studying the biological hierarchy within a coastal salt marsh. She first examines individual salt-tolerant cordgrass plants, then measures the total group of cordgrass plants growing along a single tidal creek, and finally records how the cordgrass interacts with fiddler crabs, ribbed mussels, tidal water salinity, and muddy sediment. Which sequence accurately orders the levels of biological organization she studied from smallest to largest?", "correct": "Organism → Population → Ecosystem", "trap": "Organism → Community → Ecosystem", "randoms": ["Population → Community → Biosphere", "Tissue → Organism → Population"], "explanation": "A single cordgrass plant is an organism, all cordgrass along the creek is a population, and the community plus abiotic factors (water, salinity, sediment) is an ecosystem.", "hack": "1 plant = Organism; all of 1 species = Population; living + nonliving (salinity/mud) = Ecosystem!"}, {"id": 3, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "During an experiment on human thermoregulation, a volunteer exercises on a treadmill inside a heated chamber. As the volunteer's internal body temperature begins to rise above 37°C, sweat glands secrete moisture onto the skin surface, and blood vessels near the skin dilate to release heat into the air, returning core body temperature to its normal set point. Which fundamental characteristic of living organisms is illustrated by this physiological response?", "correct": "Homeostasis", "trap": "Evolutionary adaptation", "randoms": ["Sexual reproduction", "Cellular differentiation"], "explanation": "Sweating and vasodilation maintain a stable internal body temperature despite external heat.", "hack": "HOMEO-stasis = 'HOME-Stay' — keeping internal temperature/pH steady like a thermostat!"}, {"id": 4, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "A team of microbiologists isolates a single-celled organism from an acidic hot spring. Microscopic and genetic analyses reveal that the organism lacks a membrane-bound nucleus, possesses circular DNA floating in the cytoplasm, has cell walls lacking peptidoglycan, and contains unique membrane lipids that withstand boiling temperatures. To which taxonomic domain does this organism belong?", "correct": "Archaea", "trap": "Bacteria", "randoms": ["Eukarya", "Protista"], "explanation": "Archaea are prokaryotes whose cell walls lack peptidoglycan and whose unique membrane lipids allow survival in extreme environments.", "hack": "No nucleus + NO peptidoglycan + boiling hot spring = ARCHAEA (Ancient Extreme Prokaryotes)!"}, {"id": 5, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "An agricultural scientist designs a controlled experiment to test whether a new organic soil additive increases tomato yield. She plants 100 identical tomato seedlings in uniform pots with identical soil, sunlight, and watering schedules. Fifty plants receive the organic soil additive, while the other fifty plants receive no additive. After ten weeks, she weighs the total mass of ripe tomatoes harvested from each plant. In this experiment, what is the dependent variable?", "correct": "The total mass of ripe tomatoes harvested from each plant", "trap": "The presence or absence of the organic soil additive in each pot", "randoms": ["The fixed amount of sunlight and water given to the plants", "The fifty control plants that did not receive the soil additive"], "explanation": "The dependent variable is the measured outcome affected by the independent variable (the soil additive).", "hack": "Dependent variable = the DATA you measure at the end (tomato mass), which DEPENDS on what you changed!"}, {"id": 6, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "A student observes that whenever she places a potted houseplant near a sunny south-facing window, the stems curve toward the glass over several days, and the leaves orient their flat surfaces directly toward the incoming light rays. Which characteristic of life explains why the plant alters its growth direction in reaction to light?", "correct": "Response to stimuli", "trap": "Inheritance of acquired traits", "randoms": ["Energy processing via respiration", "Maintenance of osmotic balance"], "explanation": "Phototropism (bending toward light) demonstrates how organisms detect and respond to environmental cues.", "hack": "Detecting light/touch/heat and reacting = Response to Stimuli!"}, {"id": 7, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "While exploring a temperate rainforest, a field ecologist records observations of bracket fungi growing on a fallen oak log. Unlike the surrounding ferns and mosses that capture sunlight to synthesize sugars, the fungi secrete digestive enzymes onto the dead wood and absorb broken-down organic molecules across their cell walls. How are these fungi classified based on how they obtain energy and nutrients?", "correct": "Heterotrophic decomposers", "trap": "Chemoautotrophic bacteria", "randoms": ["Photoautotrophic plants", "Autotrophic primary producers"], "explanation": "Fungi obtain energy and carbon by secreting enzymes to break down dead organic matter and absorbing the nutrients.", "hack": "Fungi don't make their own food (not autotrophs)—they digest dead matter = Heterotrophic Decomposers!"}, {"id": 8, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "A biology student is reviewing the difference between a scientific hypothesis and a scientific theory before an exam. Her study partner claims that a hypothesis becomes a theory once a single experiment proves it right, and a theory eventually becomes a law after fifty years. Which statement provides the scientifically accurate correction?", "correct": "A hypothesis is a testable, narrow prediction, whereas a theory is a broad explanation supported by extensive, converging evidence from many studies.", "trap": "A theory is a broad, untested guess about nature, whereas a hypothesis is a proven fact that can no longer be falsified by future experiments.", "randoms": ["Scientific theories and scientific laws are identical terms used interchangeably by biologists once an idea has survived decades of peer review.", "Hypotheses are narrow predictions used exclusively in chemistry labs, whereas theories are broad explanations used only for living organisms."], "explanation": "A hypothesis is a narrow, testable prediction, whereas a scientific theory is a comprehensive explanation backed by a massive body of evidence.", "hack": "Hypotheses don't 'graduate' into laws! Hypothesis = narrow testable prediction; Theory = broad explanation backed by mountains of evidence."}, {"id": 9, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "Muscle cells in the human heart are composed of specialized proteins such as actin and myosin. Individually, isolated actin and myosin molecules cannot pump blood. However, when organized into cardiac muscle cells, which then form cardiac tissue and a four-chambered heart, the organ successfully circulates blood throughout the entire body. Which biological concept explains how pumping ability appears at the organ level?", "correct": "Emergent properties", "trap": "Homeostatic feedback", "randoms": ["Natural selection", "Genetic drift"], "explanation": "Complex functions like pumping blood emerge only when simpler molecules and cells interact as an organized system.", "hack": "New abilities that EMERGE only when parts team up together = Emergent Properties!"}, {"id": 10, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "A wildlife survey team counts every individual snapping turtle living within a specific 40-acre freshwater wetland in Virginia. They do not include the painted turtles, bullfrogs, water lilies, or dissolved oxygen levels present in the same pond. Which level of biological organization is represented exclusively by this group of snapping turtles?", "correct": "Population", "trap": "Community", "randoms": ["Ecosystem", "Biome"], "explanation": "A population consists of all individuals of a single species living in a defined geographic area at the same time.", "hack": "One species in one place = POPULATION. Multiple species = Community."}, {"id": 11, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "Two newly discovered beetle species look nearly identical in size, color, and shell markings. However, genetic sequencing shows substantial differences in their DNA, and when researchers place males and females of the two groups together in the laboratory, they fail to produce viable, fertile offspring. Based on the biological species concept, how should these beetles be classified?", "correct": "Two distinct species that are reproductively isolated", "trap": "Members of one single species with minor variation", "randoms": ["A single population undergoing binary fission", "Identical clones expressing different phenotypes"], "explanation": "Under the biological species concept, groups that cannot interbreed to produce fertile offspring are separate species.", "hack": "Biological Species Concept = Can they make fertile babies? No = Reproductively isolated = 2 separate species!"}, {"id": 12, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "A clinical researcher is testing a new antiviral drug designed to reduce the duration of influenza symptoms. She recruits 400 volunteers infected with the flu and randomly assigns 200 to receive a pill containing the active antiviral drug and 200 to receive an identical-looking sugar pill containing no active medication. Neither the patients nor the doctors administering the pills know which group each patient is in. What is the primary purpose of the group receiving the sugar pill?", "correct": "To serve as a baseline control group for comparison", "trap": "To act as the primary experimental variable", "randoms": ["To double the sample size of the drug-treated group", "To eliminate the need for statistical data analysis"], "explanation": "A placebo control group allows researchers to isolate the true effect of the active medication.", "hack": "Sugar pill / placebo = Baseline Control Group so you can prove the real drug actually works!"}, {"id": 13, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "A taxonomist is classifying four organisms: a domestic dog (Canis lupus), a gray wolf (Canis lupus), a red fox (Vulpes vulpes), and a monarch butterfly (Danaus plexippus). All four belong to the domain Eukarya and kingdom Animalia, while the dog, wolf, and fox also share the class Mammalia and order Carnivora. Which two organisms share the most recent evolutionary common ancestor?", "correct": "The domestic dog and the gray wolf", "trap": "The domestic dog and the common red fox", "randoms": ["The red fox and the monarch butterfly", "The gray wolf and the monarch butterfly"], "explanation": "Both share the exact same genus and species classification (Canis lupus), indicating the closest evolutionary relationship.", "hack": "Same Genus + Species (Canis lupus) = closest cousins with the most recent common ancestor!"}, {"id": 14, "category": "119.2.1", "unit": "119.2.1 · Living Organisms", "q": "A single fertilized human egg cell (zygote) divides repeatedly over nine months, following instructions encoded in its DNA, to form specialized tissues, organs, and limbs that transform it into a newborn infant. Which characteristic of living organisms is directly described by this progression?", "correct": "Growth and development", "trap": "Evolutionary adaptation", "randoms": ["Anaerobic respiration", "Passive transport"], "explanation": "Cell division and specialization guided by DNA transform a single zygote into a complex multicellular organism.", "hack": "1 cell dividing & specializing into tissues/organs = Growth and Development!"}, {"id": 15, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "Marine researchers investigating purple sea urchins (Strongylocentrotus purpuratus) exposed developing urchin larvae to seawater infused with elevated levels of carbon dioxide (CO₂). As CO₂ dissolved in the water, it reacted with H₂O to form carbonic acid, which released hydrogen ions (H⁺) and lowered the seawater pH from 8.1 to 7.6. Consequently, carbonate ions became scarce, and the urchin larvae grew stunted, fragile calcium carbonate skeletons. Which chemical principle explains why elevated CO₂ disrupted skeleton formation?", "correct": "Excess hydrogen ions lowered the ocean pH (ocean acidification) and bound to carbonate ions, reducing the building blocks needed for calcium carbonate shells.", "trap": "Adding CO₂ increased the concentration of hydroxide ions (OH⁻), making the ocean strongly basic and dissolving the calcium carbonate shells outright.", "randoms": ["Carbonic acid formed strong covalent bonds with surrounding water molecules, causing the seawater to thicken and freeze solid at room temperature.", "Lowering the ocean pH chemically converted solid calcium carbonate skeletons into soluble glucose molecules that sank to the deep seafloor."], "explanation": "Dissolving CO₂ produces carbonic acid, increasing H⁺ ions (lowering pH) and reducing carbonate ions required for calcium carbonate shells.", "hack": "More CO₂ → more H⁺ (lower pH = acidification) → H⁺ steals carbonate ions needed for shells!"}, {"id": 16, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "During winter in northern lakes, surface water cools to 0°C and freezes into a solid layer of ice that floats on top of the liquid water below. This floating ice insulates the deeper water, allowing fish, aquatic insects, and plants to survive beneath the surface until spring. What molecular property of water causes solid ice to be less dense than liquid water?", "correct": "Hydrogen bonds lock water molecules into a rigid, open crystalline lattice that spaces the molecules farther apart than in liquid water.", "trap": "Covalent bonds between oxygen and hydrogen atoms stretch twice as long when cooled below 4°C, expanding each individual water molecule.", "randoms": ["Water molecules lose all electrical polarity when frozen, causing neighboring molecules to repel one another outward into the open air.", "Ionic bonds form between adjacent frozen water molecules, trapping microscopic bubbles of oxygen gas inside every single ice crystal."], "explanation": "Hydrogen bonds hold ice molecules in an open crystalline lattice that is less dense than liquid water, allowing ice to float.", "hack": "Ice floats because HYDROGEN BONDS lock H₂O into a roomy, open lattice (less dense than liquid)!"}, {"id": 17, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "A giant redwood tree transports water from its roots deep in the soil all the way up to leaves more than 300 feet above the ground without a mechanical pump. As water evaporates from tiny pores in the leaves, unbroken columns of water are pulled upward through microscopic xylem tubes. Which two properties of water work together to make this upward transport possible?", "correct": "Cohesion (water molecules sticking to each other) and adhesion (water molecules sticking to xylem walls)", "trap": "High specific heat capacity (absorbing heat slowly) and low viscosity (flowing without any friction)", "randoms": ["Hydrophobic exclusion (repelling polar surfaces) and nonpolar covalent bonding between H₂O molecules", "High liquid density at 4°C (peak density) and strong acid-base buffering inside plant vascular tissues"], "explanation": "Cohesion pulls water molecules together in a continuous column, while adhesion helps water cling to xylem walls against gravity.", "hack": "CO-hesion = water sticks to ITSELF; AD-hesion = water clings to xylem WALLS!"}, {"id": 18, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "A biochemist is analyzing two unknown liquid samples in a laboratory. Sample A has a pH of 4, while Sample B has a pH of 7. How does the hydrogen ion (H⁺) concentration of Sample A compare to that of Sample B?", "correct": "Sample A has 1,000 times more H⁺ ions than Sample B.", "trap": "Sample A has 30 times more H⁺ ions than Sample B.", "randoms": ["Sample A has 3 times more H⁺ ions than Sample B.", "Sample A has 1,000 times fewer H⁺ ions than Sample B."], "explanation": "Each whole unit decrease on the pH scale represents a 10-fold increase in H⁺ concentration (10 × 10 × 10 = 1,000).", "hack": "Lower pH = MORE H⁺! Each pH step is ×10: pH 7 → 4 is 3 steps = 10 × 10 × 10 = 1,000× more H⁺!"}, {"id": 19, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "Long-distance migratory birds store dense reserves of energy before flying thousands of miles across open ocean without stopping to eat. Rather than storing all of their reserve energy as glycogen (a carbohydrate), these birds store most of it as triglycerides in adipose tissue because triglycerides pack more than twice as much chemical energy per gram and do not attract heavy water molecules. To which class of biological macromolecules do triglycerides belong?", "correct": "Lipids", "trap": "Polysaccharides", "randoms": ["Proteins", "Nucleic acids"], "explanation": "Triglycerides are hydrophobic lipids that store more than twice the energy per gram compared to carbohydrates.", "hack": "Triglycerides (fats/oils) = hydrophobic long-term energy = LIPIDS!"}, {"id": 20, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "Lactase is a digestive enzyme in the human small intestine that breaks down lactose (milk sugar) into glucose and galactose. A patient with a high fever experiences a temporary drop in lactase activity because the elevated body temperature disrupts weak hydrogen bonds and hydrophobic interactions holding the enzyme together, altering the shape of its active site. What has happened to the lactase enzyme?", "correct": "It has denatured, losing its three-dimensional structure and catalytic function.", "trap": "It has permanently increased the activation energy of all cellular reactions.", "randoms": ["It has undergone rapid hydrolysis into single nucleic acid monomers in the gut.", "It has converted from a protein catalyst into a saturated fatty acid molecule."], "explanation": "Extreme heat disrupts weak bonds holding a protein in its functional 3D shape.", "hack": "DE-nature = DE-stroy the 3D shape of the active site!"}, {"id": 21, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "When a cell builds a long starch molecule from hundreds of individual glucose monomers, an enzyme removes a hydroxyl group (-OH) from one glucose molecule and a hydrogen atom (-H) from the next glucose molecule, forming a covalent bond between the sugars and releasing a molecule of water. Which type of chemical reaction is occurring?", "correct": "Dehydration synthesis (condensation)", "trap": "Hydrolysis (water splits the bond)", "randoms": ["Ionization (gain or loss of charge)", "Denaturation (protein loses shape)"], "explanation": "Linking monomers into a polymer removes a molecule of water for each covalent bond formed.", "hack": "DE-hydration synthesis = losing H₂O to BUILD a polymer! (Hydro-lysis = using H₂O to BREAK it.)"}, {"id": 22, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "A nutritionist compares two cooking fats at room temperature (22°C): butter, which is solid, and olive oil, which is liquid. Chemical analysis shows that the fatty acid tails in butter contain only single covalent bonds between carbon atoms, allowing the chains to pack tightly together, whereas the fatty acid tails in olive oil contain double covalent bonds that create bends in the chains. How are these two fats classified?", "correct": "Butter is rich in saturated fats, and olive oil is rich in unsaturated fats.", "trap": "Butter is rich in unsaturated fats, and olive oil is rich in saturated fats.", "randoms": ["Both butter and olive oil are composed of tightly coiled amino acid polymers.", "Butter is a solid nucleic acid, while olive oil is a liquid monosaccharide."], "explanation": "Saturated fatty acids have no double bonds and pack tightly (solid at room temp); unsaturated fatty acids have double bonds that create kinks (liquid at room temp).", "hack": "Saturated = Straight chains pack Solid (butter). Unsaturated = double bonds bend/kink so it stays Liquid (olive oil)!"}, {"id": 23, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "In sodium chloride (table salt), a sodium atom (Na) donates its single valence electron to a chlorine atom (Cl). This transfer gives sodium a positive charge (Na⁺) and chlorine a negative charge (Cl⁻), and the opposite charges attract each other to hold the compound together. What type of chemical bond holds sodium and chloride together?", "correct": "Ionic bond", "trap": "Polar covalent bond", "randoms": ["Nonpolar covalent bond", "Hydrogen bond"], "explanation": "Electron transfer creates oppositely charged ions (Na⁺ and Cl⁻) that attract each other.", "hack": "Transferring electrons to make + and – IONS that attract = IONIC bond! (Sharing = Covalent.)"}, {"id": 24, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "A cell membrane acts as a selective barrier that separates the watery interior of a cell from the watery fluid outside. The core of this membrane consists of a double layer of phospholipids whose hydrophilic heads face outward toward the water and whose hydrophobic fatty acid tails point inward away from the water. Why do the fatty acid tails avoid contact with water?", "correct": "Fatty acid tails are composed of nonpolar carbon-hydrogen bonds that cannot form hydrogen bonds with polar water molecules.", "trap": "Fatty acid tails carry strong positive ionic charges that magnetically repel negatively charged oxygen atoms in water.", "randoms": ["Fatty acid tails are made of linked nucleotides that remain stable only inside strongly acidic cellular solutions.", "Water molecules are completely nonpolar and actively push the lipid tails away from the surface of the membrane."], "explanation": "Nonpolar hydrocarbon tails cannot form hydrogen bonds with polar water molecules, causing them to cluster inward.", "hack": "Water is polar; hydrocarbon tails are NONPOLAR—they can't hydrogen-bond with water, so they tuck inside!"}, {"id": 25, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "A student is analyzing an unknown macromolecule isolated from a fungal cell wall. Chemical testing reveals that the macromolecule is a polymer made of repeating nitrogen-containing sugar monomers linked together to provide rigid structural support. Which class of macromolecules does this substance belong to?", "correct": "Carbohydrates (polysaccharides)", "trap": "Lipids (steroids and waxes)", "randoms": ["Nucleic acids (DNA and RNA)", "Proteins (amino acid chains)"], "explanation": "Chitin in fungal cell walls is a structural polysaccharide made of modified glucose monomers.", "hack": "Repeating SUGAR monomers (like chitin or cellulose) = Carbohydrate / Polysaccharide!"}, {"id": 26, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "During a metabolic reaction inside a liver cell, an enzyme binds to its specific substrate molecule and strains its chemical bonds, allowing the reaction to proceed rapidly at normal body temperature (37°C) rather than requiring extreme heat. How does the enzyme accelerate this reaction?", "correct": "By lowering the activation energy barrier required to start the reaction", "trap": "By supplying extra ATP molecules directly to the substrate as fuel", "randoms": ["By raising the temperature inside the whole liver cell to about 100°C", "By permanently changing the chemical formula of the products it makes"], "explanation": "Enzymes act as biological catalysts by reducing activation energy without being consumed.", "hack": "Enzymes = Catalysts that LOWER the Activation Energy hill!"}, {"id": 27, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "A forensic biochemist analyzes an unknown biological sample and finds that it contains carbon, hydrogen, oxygen, nitrogen, and phosphorus, and is composed of monomers consisting of a five-carbon sugar, a phosphate group, and a nitrogenous base. Which macromolecule has the biochemist identified?", "correct": "Nucleic acid", "trap": "Polypeptide", "randoms": ["Triglyceride", "Glycogen"], "explanation": "Nucleotides (sugar, phosphate, nitrogenous base) containing C, H, O, N, and P are the building blocks of DNA and RNA.", "hack": "Sugar + Phosphate + Base (C, H, O, N, P) = Nucleotide → NUCLEIC ACID (DNA/RNA)!"}, {"id": 28, "category": "119.2.2", "unit": "119.2.2 · Chemistry", "q": "Coastal cities like San Diego experience much milder temperature swings between day and night than inland desert cities at the exact same latitude. During the day, the Pacific Ocean absorbs vast amounts of solar heat with only a slight rise in water temperature, and at night it slowly releases that heat back into the air. Which property of water accounts for this climate-moderating effect?", "correct": "High specific heat capacity", "trap": "Universal solvent ability", "randoms": ["Cohesive surface tension", "Neutral pH of 7.0 in pure water"], "explanation": "Extensive hydrogen bonding allows water to absorb and release large amounts of heat with minimal temperature change.", "hack": "Oceans resist temperature swings because H-bonds give water a HIGH SPECIFIC HEAT CAPACITY!"}, {"id": 29, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "A cell biologist examines an unknown tissue sample under an electron microscope. The cells contain a prominent central vacuole, stacks of green thylakoid membranes inside double-membraned organelles, mitochondria, ribosomes, a nucleus, and a rigid outer boundary composed of cellulose. From which type of organism was this tissue sample taken?", "correct": "A plant", "trap": "A bacterium", "randoms": ["An animal", "A virus"], "explanation": "Chloroplasts, a central vacuole, and a cellulose cell wall are hallmark features of plant cells.", "hack": "Central vacuole + Chloroplasts (thylakoids) + Cellulose cell wall = PLANT CELL!"}, {"id": 30, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "Pancreatic acinar cells specialize in producing and secreting large quantities of digestive enzymes into the small intestine. Once these proteins are synthesized on ribosomes attached to the rough endoplasmic reticulum, they are transported to a stack of flattened membranous sacs where they are modified, sorted, and packaged into secretory vesicles that bud off and fuse with the plasma membrane. Which organelle performs this modifying and packaging step?", "correct": "Golgi apparatus", "trap": "Smooth endoplasmic reticulum", "randoms": ["Lysosome", "Peroxisome"], "explanation": "The Golgi apparatus modifies, sorts, and packages proteins arriving from the rough ER into transport vesicles.", "hack": "Golgi Apparatus = Cell's Post Office (modifies, sorts, and ships proteins in vesicles)!"}, {"id": 31, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "During an emergency room procedure, a nurse accidentally administers an intravenous (IV) bag containing pure distilled water (a hypotonic solution) instead of normal 0.9% saline (an isotonic solution) into a patient's bloodstream. As the pure water surrounds the patient's red blood cells, which net movement of water occurs and how does it affect the cells?", "correct": "Water moves into the red blood cells via osmosis, causing them to swell and potentially burst (lyse).", "trap": "Water moves out of the red blood cells via osmosis, causing them to shrivel and lose normal shape.", "randoms": ["Sodium ions rush into the red blood cells via active transport, reinforcing their rigid cell walls.", "Water moves equally into and out of the red blood cells, leaving their overall volume unchanged."], "explanation": "In a hypotonic solution, water enters the cell where solute concentration is higher.", "hack": "HYPO-tonic = Water rushes IN, cell swells like a HIPPO and can lyse!"}, {"id": 32, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "Neurons maintain a steep concentration gradient across their plasma membranes by keeping sodium ion (Na⁺) concentrations high outside the cell and potassium ion (K⁺) concentrations high inside the cell. To maintain this imbalance, a membrane protein continuously pumps three Na⁺ ions out of the cell and two K⁺ ions into the cell against their concentration gradients, consuming one molecule of ATP per cycle. Which transport mechanism is this protein performing?", "correct": "Active transport", "trap": "Facilitated diffusion", "randoms": ["Simple diffusion", "Osmosis"], "explanation": "Pumping ions against their concentration gradients requires cellular energy in the form of ATP.", "hack": "Pumping AGAINST the gradient (Low → High) + spending ATP = ACTIVE TRANSPORT!"}, {"id": 33, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "A toxicologist exposes cultured human liver cells to a chemical inhibitor that blocks complex IV of the mitochondrial electron transport chain, preventing electrons from transferring to oxygen. Within minutes, ATP production plummets and the cells begin to die. Why is oxygen essential for the electron transport chain to generate ATP?", "correct": "Oxygen acts as the final electron acceptor at the end of the chain, allowing electrons to keep flowing and protons to be pumped.", "trap": "Oxygen splits six-carbon glucose directly into two pyruvate molecules during the initial steps of cytoplasmic glycolysis.", "randoms": ["Oxygen directly transfers high-energy phosphate groups onto ADP molecules to synthesize ATP inside the cytoplasm of the cell.", "Oxygen absorbs incoming light energy to excite electrons inside chlorophyll pigment complexes before cellular respiration."], "explanation": "Oxygen serves as the final electron acceptor at the end of the mitochondrial electron transport chain.", "hack": "Oxygen is the FINAL ELECTRON ACCEPTOR at the end of the Electron Transport Chain—no O₂, traffic jam!"}, {"id": 34, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "A plant physiologist places a healthy green aquatic plant (Elodea) inside a sealed glass chamber containing water and dissolved carbon dioxide, then shines a bright light on the chamber. Over two hours, gas bubbles accumulate at the top of the chamber, and chemical analysis reveals that the gas is pure oxygen (O₂). From which reactant molecule were these oxygen atoms split during the light-dependent reactions of photosynthesis?", "correct": "Water (H₂O)", "trap": "Carbon dioxide (CO₂)", "randoms": ["Glucose (C₆H₁₂O₆)", "Adenosine triphosphate (ATP)"], "explanation": "During the light-dependent reactions, water molecules are split to supply electrons, releasing O₂ gas as a byproduct.", "hack": "The O₂ bubbles in photosynthesis come from splitting WATER (H₂O) — NOT from CO₂!"}, {"id": 35, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "A sprinter runs a 400-meter race at maximum effort. Halfway through the race, her leg muscle cells consume oxygen faster than her cardiovascular system can deliver it. To continue generating a small supply of ATP so her muscles can keep contracting, her muscle cells switch to an anaerobic pathway that regenerates NAD⁺ from NADH. What byproduct accumulates in her muscle cells during this anaerobic process?", "correct": "Lactic acid", "trap": "Ethanol and carbon dioxide", "randoms": ["Oxygen gas", "Acetyl-CoA"], "explanation": "Human muscle cells perform lactic acid fermentation to regenerate NAD⁺ when oxygen is scarce.", "hack": "Human muscles without O₂ = LACTIC ACID fermentation! (Yeast makes ethanol + CO₂.)"}, {"id": 36, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "A microbiology student compares a sample of Escherichia coli bacteria with a sample of human cheek epithelial cells. Despite major differences in size and internal complexity, both cell types share several fundamental structures. Which set of structures is present in BOTH the bacterial cells and the human cheek cells?", "correct": "Plasma membrane, cytoplasm, ribosomes, and DNA", "trap": "Nucleus, mitochondria, and plasma membrane", "randoms": ["Chloroplasts, cell wall, and endoplasmic reticulum", "Golgi apparatus, lysosomes, and cytoskeleton"], "explanation": "All prokaryotic and eukaryotic cells share these four basic components.", "hack": "All cells share D-R-C-M: DNA, Ribosomes, Cytoplasm, Membrane!"}, {"id": 37, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "Tay-Sachs disease is a genetic disorder in which nerve cells lack a functional digestive enzyme normally housed inside membrane-bound vesicles responsible for breaking down excess fatty substances (gangliosides). Without this enzyme, lipids accumulate to toxic levels inside the neurons. Which cellular organelle is malfunctioning in patients with Tay-Sachs disease?", "correct": "Lysosome", "trap": "Ribosome", "randoms": ["Chloroplast", "Central vacuole"], "explanation": "Lysosomes contain hydrolytic enzymes that break down lipids, proteins, and cellular waste.", "hack": "LYSO-some = 'LYSOL cleaner' — digests cellular waste & lipids with hydrolytic enzymes!"}, {"id": 38, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "A botanist places a plant leaf in the dark for 48 hours while supplying the plant with carbon dioxide labeled with radioactive carbon-14 (¹⁴CO₂). Even in complete darkness, if the botanist artificially supplies the chloroplasts with ATP and NADPH, the plant continues to synthesize radioactive glucose inside the fluid-filled stroma. Which stage of photosynthesis is occurring in the stroma?", "correct": "Calvin cycle", "trap": "Light-dependent reactions", "randoms": ["Glycolysis", "Citric acid (Krebs) cycle"], "explanation": "The Calvin cycle occurs in the chloroplast stroma and uses ATP and NADPH to fix CO₂ into sugar.", "hack": "Stroma + CO₂ + ATP/NADPH → Glucose = CALVIN CYCLE!"}, {"id": 39, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "Glucose is a relatively large, polar molecule that cannot pass directly through the hydrophobic lipid bilayer of a cell membrane on its own. However, when blood glucose levels rise after a meal, glucose molecules move rapidly from the bloodstream into muscle cells down their concentration gradient through specific channel and carrier proteins without requiring ATP. Which transport process brings glucose into these cells?", "correct": "Facilitated diffusion", "trap": "Simple diffusion", "randoms": ["Primary active transport", "Exocytosis"], "explanation": "Transport proteins move glucose passively down its concentration gradient without using ATP.", "hack": "Down gradient (High → Low) + NO ATP + needs a protein helper = FACILITATED DIFFUSION!"}, {"id": 40, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "While studying cellular respiration, a student tracks a single molecule of glucose (6 carbons) as it enters a eukaryotic cell. In the cytoplasm, the glucose molecule is split into two 3-carbon molecules of pyruvate, generating a net yield of 2 ATP and 2 NADH without using any oxygen. Which stage of cellular respiration does this describe?", "correct": "Glycolysis", "trap": "Pyruvate oxidation", "randoms": ["Citric acid (Krebs) cycle", "Oxidative phosphorylation"], "explanation": "Glycolysis takes place in the cytoplasm and breaks glucose into two pyruvate molecules, yielding 2 ATP and 2 NADH.", "hack": "GLYCO-lysis = splitting Glucose in the cytoplasm → 2 Pyruvate + 2 ATP (no O₂ needed)!"}, {"id": 41, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "White blood cells called macrophages protect the body by engulfing invading bacteria. When a macrophage encounters a bacterium, its plasma membrane extends outward, wraps completely around the bacterium, and pinches inward to form an internal vesicle that is later fused with digestive enzymes. What is this bulk-transport process called?", "correct": "Endocytosis (phagocytosis)", "trap": "Exocytosis (vesicle release)", "randoms": ["Osmosis (diffusion of water)", "Facilitated diffusion"], "explanation": "Cells engulf large particles or bacteria by folding the plasma membrane inward to form a vesicle.", "hack": "ENDO-cytosis = ENters the cell! (EXO-cytosis = EXits the cell.)"}, {"id": 42, "category": "119.2.3", "unit": "119.2.3 · Cells", "q": "Chronic alcohol consumption causes liver cells to dramatically increase the surface area of a specific membrane network that contains detoxification enzymes capable of neutralizing drugs and alcohol, as well as synthesizing phospholipids and steroid hormones. Which organelle expands in liver cells in response to toxin exposure?", "correct": "Smooth endoplasmic reticulum", "trap": "Rough endoplasmic reticulum", "randoms": ["Nucleus and its envelope", "Mitochondrial membranes"], "explanation": "The smooth ER synthesizes lipids and contains enzymes that detoxify alcohol and drugs in liver cells.", "hack": "SMOOTH ER = makes Lipids/Hormones + Detoxifies alcohol & drugs!"}, {"id": 43, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "In a vertebrate phylogenetic tree (cladogram) branching sequentially from earliest to most recent: Node 1 introduces a skull/cranium (shared by Hagfish and all later lineages); Node 2 introduces a bony skeleton (shared by Perch, Salamander, Turtle, Wolf, and Chimpanzee); Node 3 introduces four limbs (shared by Salamander, Turtle, Wolf, and Chimpanzee); Node 4 introduces an amniotic egg (shared by Turtle, Wolf, and Chimpanzee); and Node 5 introduces hair and mammary glands (shared exclusively by Wolf and Chimpanzee). Based on this branching pattern, which pair of organisms shares the most recent common ancestor?", "correct": "Wolf and Chimpanzee", "trap": "Turtle and Wolf", "randoms": ["Perch and Salamander", "Hagfish and Perch"], "explanation": "They share the most recent common branch point (Node 5) on the cladogram.", "hack": "Follow branches to the HIGHEST/most recent node (Node 5): Wolf & Chimpanzee!"}, {"id": 44, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "In a vertebrate phylogenetic tree (cladogram) branching sequentially from earliest to most recent: Node 1 introduces a skull/cranium (shared by Hagfish and all later lineages); Node 2 introduces a bony skeleton (shared by Perch, Salamander, Turtle, Wolf, and Chimpanzee); Node 3 introduces four limbs (shared by Salamander, Turtle, Wolf, and Chimpanzee); Node 4 introduces an amniotic egg (shared by Turtle, Wolf, and Chimpanzee); and Node 5 introduces hair and mammary glands (shared exclusively by Wolf and Chimpanzee). According to these derived traits at each node, which organism(s) possess four limbs and an amniotic egg, but lack hair and mammary glands?", "correct": "Turtle only", "trap": "Salamander only", "randoms": ["Wolf and Chimpanzee", "Perch and Salamander"], "explanation": "Node 4 adds the amniotic egg (present in Turtle, Wolf, Chimpanzee), while Node 5 adds hair and mammary glands (excluding Turtle).", "hack": "After Node 4 (amniotic egg) but BEFORE Node 5 (hair & mammary glands) = TURTLE ONLY!"}, {"id": 45, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "In a vertebrate phylogenetic tree (cladogram) branching sequentially from earliest to most recent: Node 1 introduces a skull/cranium (shared by Hagfish and all later lineages); Node 2 introduces a bony skeleton (shared by Perch, Salamander, Turtle, Wolf, and Chimpanzee); Node 3 introduces four limbs (shared by Salamander, Turtle, Wolf, and Chimpanzee); Node 4 introduces an amniotic egg (shared by Turtle, Wolf, and Chimpanzee); and Node 5 introduces hair and mammary glands (shared exclusively by Wolf and Chimpanzee). Suppose paleontologists uncover a fossil vertebrate that possessed a skull, a bony skeleton, and four limbs, but laid jelly-coated eggs in water rather than amniotic eggs. Where on this cladogram would this fossil organism branch off?", "correct": "Between Node 3 and Node 4", "trap": "Between Node 2 and Node 3", "randoms": ["Between Node 1 and Node 2", "After Node 5"], "explanation": "Having four limbs places it after Node 3, while lacking an amniotic egg places it before Node 4.", "hack": "Has Node 3 trait (Four limbs) + lacks Node 4 trait (Amniotic egg) → sits BETWEEN Node 3 and Node 4!"}, {"id": 46, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "Marine biologists studying coastal kelp forests noticed a dramatic decline in giant kelp populations alongside a massive surge in purple sea urchins (Strongylocentrotus purpuratus). Prior to this shift, sea otters kept the urchin population low by preying on them. When a disease wiped out the local sea otters, the urchins overgrazed the kelp, turning a diverse underwater forest into a barren seafloor with almost no other species. What ecological role do sea otters play in this ecosystem?", "correct": "Keystone species", "trap": "Primary producer", "randoms": ["Pioneer species", "Invasive predator"], "explanation": "Sea otters maintain ecosystem balance; removing them triggers a trophic cascade that collapses the kelp forest.", "hack": "Remove 1 predator → whole ecosystem collapses = KEYSTONE SPECIES!"}, {"id": 47, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "A marine genetics team sequenced the genome of the purple sea urchin and discovered that it shares approximately 7,000 genes with humans, including genes involved in immune recognition and sensory perception, despite lacking eyes, ears, or an adaptive immune system. What does this genetic similarity indicate about the evolutionary relationship between sea urchins and humans?", "correct": "Sea urchins and humans share a distant common ancestor that possessed these foundational genes.", "trap": "Sea urchins acquired human DNA recently through horizontal gene transfer in coastal marine waters.", "randoms": ["Modern humans evolved directly in a straight line from the ancient purple sea urchin populations.", "Identical DNA sequences always produce identical physical organs across completely different species."], "explanation": "Shared homologous genes indicate descent from a distant common ancestor that possessed those core genetic pathways.", "hack": "Shared ancient genes across distant animals = inherited from a DISTANT COMMON ANCESTOR!"}, {"id": 48, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "Scientists studying two isolated populations of purple sea urchins—one living in cold northern waters and one living in warmer southern waters—analyzed their DNA sequences for a heat-shock protein gene. They found that 98% of the southern urchins carried a specific allele that protects cells from thermal stress, whereas only 12% of the northern urchins carried that allele. Which evolutionary process best explains the high frequency of this allele in the southern population?", "correct": "Natural selection favoring individuals with higher thermal tolerance in warmer waters", "trap": "Genetic drift caused by a random hurricane reducing population size in southern waters", "randoms": ["Artificial selection practiced by commercial marine aquariums breeding captive urchin lines", "Inbreeding depression sharply reducing overall genetic diversity in northern cold-water reefs"], "explanation": "Warm southern waters select for individuals carrying the thermal-tolerance allele, increasing its frequency over generations.", "hack": "Trait matches the environment's survival pressure (heat tolerance in warm water) = NATURAL SELECTION!"}, {"id": 49, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "In a prairie ecosystem, native grasses capture 20,000 kilocalories (kcal) of energy from sunlight. Grasshoppers eat the grasses, meadowlarks eat the grasshoppers, and red-tailed hawks prey on the meadowlarks. Assuming standard ecological energy transfer efficiency between trophic levels, approximately how much energy is available to the red-tailed hawks at the tertiary consumer level?", "correct": "20 kcal", "trap": "200 kcal", "randoms": ["2,000 kcal", "2 kcal"], "explanation": "Applying the 10% energy transfer rule: 20,000 kcal (grass) → 2,000 kcal (grasshoppers) → 200 kcal (meadowlarks) → 20 kcal (hawks).", "hack": "Drop one zero per trophic step! 20,000 (grass) → 2,000 (hop) → 200 (lark) → 20 kcal (hawk)!"}, {"id": 50, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "A volcanic eruption in the Pacific Ocean creates a brand-new island composed entirely of cooled basalt rock with no soil, seeds, or living organisms. Over several decades, windblown spores allow lichens and mosses to colonize the bare rock, slowly breaking it down into thin soil that eventually supports grasses, shrubs, and trees. What ecological process is taking place on this island?", "correct": "Primary succession", "trap": "Secondary succession", "randoms": ["Eutrophication", "Competitive exclusion"], "explanation": "Colonization of lifeless bare rock where no soil previously existed is primary succession.", "hack": "BARE ROCK with ZERO soil (volcano/glacier) = PRIMARY succession! (Soil already there = Secondary.)"}, {"id": 51, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "Legume plants such as clover, soybeans, and alfalfa form small nodules on their roots that house specialized bacteria of the genus Rhizobium. The bacteria convert atmospheric nitrogen gas (N₂) into ammonia (NH₃) that the plant uses to build amino acids, while the plant supplies the bacteria with sugars produced via photosynthesis. Which type of ecological interaction exists between the legume plants and the Rhizobium bacteria?", "correct": "Mutualism", "trap": "Commensalism", "randoms": ["Parasitism", "Predation"], "explanation": "Both the legume plant (+ sugars/habitat) and the Rhizobium bacteria (+ fixed nitrogen) benefit from the relationship.", "hack": "Both win (+ / +): plant gets nitrogen, bacteria get sugar = MUTUALISM!"}, {"id": 52, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "A wildlife biologist tracks a herd of 50 elk introduced into a protected mountain valley with abundant grass and no natural predators. For the first five years, the elk population grows rapidly in an exponential J-shaped curve. By year ten, however, winter forage becomes scarce, competition increases, and the population size levels off around 450 elk. What does the value of 450 elk represent for this valley?", "correct": "Carrying capacity (K)", "trap": "Minimum viable population", "randoms": ["Founder effect", "Trophic cascade"], "explanation": "Carrying capacity is the maximum population size an environment can sustain indefinitely with available resources.", "hack": "Where the S-curve levels off at max sustainable population = Carrying Capacity (K)!"}, {"id": 53, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "A severe drought strikes an island inhabited by a population of 500 finches, randomly wiping out 460 birds regardless of their beak size or feather color. The 40 surviving finches happen by pure chance to carry a much higher proportion of rare recessive alleles than the original population. Over subsequent generations, the island's finch population exhibits altered allele frequencies solely due to this random disaster. Which evolutionary mechanism occurred?", "correct": "Genetic drift (bottleneck effect)", "trap": "Disruptive natural selection on beaks", "randoms": ["Gene flow from nearby islands", "Sexual selection by female choice"], "explanation": "A sudden disaster randomly reduces population size, shifting allele frequencies by chance rather than adaptation.", "hack": "Random disaster wipes out most individuals regardless of traits = BOTTLENECK EFFECT (Genetic Drift)!"}, {"id": 54, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "Two species of barnacles live on the same rocky shoreline. When grown separately in laboratory tanks, both species can survive across the entire intertidal zone from high tide to low tide. In nature, however, one species occupies only the upper dry rocks while the second species occupies only the lower submerged rocks because they compete for identical attachment space and plankton food. Which ecological principle explains why the two species divide the habitat rather than overlapping completely?", "correct": "Competitive exclusion principle", "trap": "Primary succession on rock", "randoms": ["Biomagnification of toxins", "Carbon sequestration by algae"], "explanation": "Two species competing for the exact same limiting resources cannot coexist indefinitely in the same niche.", "hack": "Two species can't hold the exact same niche at the same time = Competitive Exclusion Principle!"}, {"id": 55, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "Over the past century, atmospheric carbon dioxide (CO₂) concentrations have risen sharply, trapping outgoing infrared heat and raising average global temperatures. Environmental data show that this surge correlates directly with the large-scale extraction and combustion of coal, petroleum, and natural gas for electricity and transportation. How does burning fossil fuels disrupt the natural carbon cycle?", "correct": "It rapidly releases carbon locked underground for millions of years into the atmosphere faster than oceans and forests can absorb it.", "trap": "It chemically converts atmospheric nitrogen gas directly into carbon dioxide gas during high-temperature industrial combustion.", "randoms": ["It immediately halts cellular respiration in all terrestrial animals and soil decomposers across global ecosystems worldwide.", "It permanently eliminates all dissolved carbon from the Earth's oceans, limestone sediments, and topsoil within a single century."], "explanation": "Burning fossil fuels transfers long-stored geological carbon rapidly into the atmosphere as CO₂.", "hack": "Fossil fuels = ancient underground carbon burned FASTER than oceans & forests can re-absorb it!"}, {"id": 56, "category": "119.2.4", "unit": "119.2.4 · Organisms & Environments", "q": "A biologist is tracking two isolated populations of gray wolves separated by a newly constructed highway. Over ten years, the biologist observes that wolves occasionally cross the highway through a wildlife underpass and mate with wolves on the other side, introducing new alleles into both groups and making their gene pools more similar over time. Which evolutionary mechanism is demonstrated by this scenario?", "correct": "Gene flow", "trap": "Genetic drift", "randoms": ["Reproductive isolation", "Stabilizing selection"], "explanation": "Migration and interbreeding between populations transfers alleles and reduces genetic divergence.", "hack": "Wolves crossing & mating between populations = alleles FLOWING = GENE FLOW!"}, {"id": 57, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "During spawning season, female purple sea urchins release millions of eggs into the ocean while males release sperm. To ensure that sperm only fertilize eggs of the exact same species rather than closely related red or green sea urchins, a protein called bindin on the sperm head must lock onto a matching receptor protein on the egg surface. If a mutation in the bindin gene alters the amino acid sequence and changes the three-dimensional shape of the bindin protein so it can no longer bind to the egg receptor, why does fertilization fail?", "correct": "DNA sequence changes alter protein structure, and shape determines protein function in molecular recognition.", "trap": "The mutation converts the bindin protein gene into a simple carbohydrate that rapidly dissolves in seawater.", "randoms": ["DNA replication stops completely inside the unfertilized egg nucleus well before any sperm contact occurs.", "Osmotic pressure forces water out of the sperm cell, preventing its flagellum from swimming forward."], "explanation": "A mutation in DNA alters the amino acid sequence, changing the 3D shape of the protein so it can no longer bind its target receptor.", "hack": "Biology's golden rule: DNA change → Amino Acid change → 3D SHAPE change → Function lost!"}, {"id": 58, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "A molecular biologist isolates a segment of template DNA from a marine bacterium with the nucleotide sequence: 3'-T-A-C-G-G-A-T-C-A-5'. The researcher places this DNA into a cell-free system containing RNA polymerase and free ribonucleotides so that transcription can occur. What is the exact nucleotide sequence of the resulting mRNA transcript?", "correct": "5'-A-U-G-C-C-U-A-G-U-3'", "trap": "5'-A-T-G-C-C-T-A-G-T-3'", "randoms": ["5'-U-A-C-G-G-A-U-C-A-3'", "5'-T-A-C-G-G-A-T-C-A-3'"], "explanation": "RNA polymerase pairs DNA A with RNA U, DNA T with RNA A, DNA G with RNA C, and DNA C with RNA G.", "hack": "In RNA, T is U-turned out! T→A, A→U, C↔G: 3'-TACGGATCA-5' → 5'-AUGCCUAGU-3'!"}, {"id": 59, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "A geneticist is analyzing a mutation in a human gene that codes for a digestive enzyme. In the normal DNA sequence, the codon 3'-G-A-A-5' is transcribed into 5'-C-U-U-3', which codes for the amino acid leucine. In a patient with a single-base substitution, the DNA sequence reads 3'-G-A-G-5', which is transcribed into 5'-C-U-C-3'. When the geneticist checks the codon chart, she finds that 5'-C-U-C-3' also codes for leucine, and the patient's enzyme functions completely normally. How should this mutation be classified?", "correct": "Silent mutation", "trap": "Missense mutation", "randoms": ["Nonsense mutation", "Frameshift mutation"], "explanation": "Both 5'-C-U-U-3' and 5'-C-U-C-3' code for leucine, so the protein's amino acid sequence does not change.", "hack": "DNA changed, but the SAME amino acid is made (leucine → leucine) = SILENT mutation!"}, {"id": 60, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "Cystic fibrosis is an autosomal recessive disorder caused by a mutation in the CFTR gene, which codes for a chloride ion channel protein in cell membranes. Two parents who do not have cystic fibrosis have a child who is diagnosed with the disorder. They are planning to have a second child and consult a genetic counselor to understand their risk. What is the probability that their second child will inherit cystic fibrosis?", "correct": "25%", "trap": "50%", "randoms": ["0%", "75%"], "explanation": "Both unaffected parents must be heterozygous carriers (Aa); crossing Aa × Aa yields a 1/4 (25%) chance of an affected child (aa).", "hack": "Two unaffected carrier parents (Aa × Aa) have a 1 in 4 (25%) chance of aa for EACH pregnancy!"}, {"id": 61, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "In a laboratory experiment, a student extracts DNA from human liver cells and human skin cells taken from the same individual. Upon sequencing both samples, the student confirms that the DNA sequences in both cell types are 100% identical. However, liver cells produce alcohol dehydrogenase enzymes to break down toxins, while skin cells produce keratin protein for waterproofing. Why do these two cells perform completely different functions despite having the exact same DNA?", "correct": "Different sets of genes are turned on or off (differential gene expression) in each cell type.", "trap": "Liver cells permanently delete keratin genes from their chromosomes during early embryonic development.", "randoms": ["Skin cells rely on RNA instead of DNA as their permanent hereditary genetic material inside the nucleus.", "Ribosomes inside skin cells translate mRNA strands backward compared with ribosomes inside liver cells."], "explanation": "Specialized cells contain the same genome but regulate which genes are transcribed and translated (differential gene expression).", "hack": "Same DNA cookbook in every cell—different cells just read DIFFERENT recipes (Differential Gene Expression)!"}, {"id": 62, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "During a study on sickle cell anemia, researchers examined the hemoglobin protein in affected individuals. They found that a single nucleotide change in the DNA caused the sixth amino acid in the beta-globin polypeptide chain to change from glutamic acid (hydrophilic) to valine (hydrophobic). Under low-oxygen conditions, these altered hemoglobin proteins stick together into stiff fibers, warping red blood cells into a crescent shape. What type of mutation caused this change in the amino acid sequence?", "correct": "Missense mutation", "trap": "Nonsense mutation", "randoms": ["Silent mutation", "Chromosomal translocation"], "explanation": "A single base substitution that changes one amino acid (glutamic acid) into a different amino acid (valine) is a missense mutation.", "hack": "Swaps ONE amino acid for a DIFFERENT amino acid = MISS-ense! (Stop codon = NON-sense.)"}, {"id": 63, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "A somatic skin cell in a human adult contains 46 chromosomes (diploid, 2n = 46). When a person gets a minor scrape on their arm, healthy skin cells at the edge of the wound divide by mitosis to replace the damaged tissue. How many chromosomes will each newly formed daughter skin cell contain after mitosis and cytokinesis are complete?", "correct": "46 chromosomes, genetically identical", "trap": "23 chromosomes, genetically identical", "randoms": ["23 chromosomes, genetically unique", "92 chromosomes, genetically unique"], "explanation": "Mitosis produces two diploid daughter cells genetically identical to the parent cell.", "hack": "MI-tosis heals 'MY toes' (body cells) → 2 IDENTICAL DIPLOID (46) cells!"}, {"id": 64, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "During prophase I of meiosis in developing germ cells, homologous chromosomes pair up tightly and exchange corresponding segments of DNA between non-sister chromatids. Why is this event biologically significant for sexually reproducing species?", "correct": "It creates new combinations of alleles on chromosomes, increasing genetic diversity among offspring.", "trap": "It doubles the total chromosome number inside mature sperm and egg cells prior to fertilization.", "randoms": ["It repairs damaged mitochondrial DNA inside somatic skeletal muscle cells during intense exercise.", "It ensures that every offspring produced is an exact genetic clone of one single parent organism."], "explanation": "Crossing over exchanges segments between homologous chromosomes, generating new allele combinations in gametes.", "hack": "Crossing over in Prophase I = shuffling genetic cards for NEW allele combinations & diversity!"}, {"id": 65, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "In snapdragon flowers, flower color exhibits incomplete dominance. Plants homozygous for the red allele (CᴿCᴿ) produce red flowers, plants homozygous for the white allele (CᵂCᵂ) produce white flowers, and heterozygous plants (CᴿCᵂ) produce pink flowers. If a plant breeder crosses two pink-flowered snapdragons (CᴿCᵂ × CᴿCᵂ), what phenotypic ratio will appear among the offspring?", "correct": "1 red : 2 pink : 1 white", "trap": "3 red : 1 white", "randoms": ["100% pink", "2 red : 1 pink : 1 white"], "explanation": "Crossing CᴿCᵂ × CᴿCᵂ produces 1 CᴿCᴿ (red), 2 CᴿCᵂ (pink), and 1 CᵂCᵂ (white).", "hack": "Incomplete dominance Pink × Pink ALWAYS gives 1 Red : 2 Pink : 1 White!"}, {"id": 66, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "Human ABO blood types are controlled by three alleles: Iᴬ, Iᴮ, and i. The Iᴬ and Iᴮ alleles are codominant with each other, and both are dominant over the recessive i allele. A woman with type A blood (genotype Iᴬi) and a man with type B blood (genotype Iᴮi) have a child. Which blood type could their child potentially inherit?", "correct": "Type A, Type B, Type AB, or Type O", "trap": "Type A or Type B, but never AB or O", "randoms": ["Type AB only (both alleles shown)", "Type O only (the recessive i allele)"], "explanation": "Crossing Iᴬi × Iᴮi produces four possible genotypes: IᴬIᴮ (AB), Iᴬi (A), Iᴮi (B), and ii (O).", "hack": "Iᴬi × Iᴮi is the 'All-4-Types' cross: IᴬIᴮ (AB), Iᴬi (A), Iᴮi (B), and ii (O)!"}, {"id": 67, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "Red-green colorblindness is an X-linked recessive trait in humans. A woman with normal color vision whose father was red-green colorblind marries a man with normal color vision. If they have a son, what is the probability that their son will have red-green colorblindness?", "correct": "50%", "trap": "25%", "randoms": ["0%", "100%"], "explanation": "The mother is a carrier (XᴮXᵇ) because she inherited an Xᵇ from her colorblind father; her son has a 50% chance of inheriting XᵇY.", "hack": "Carrier mom (XᴮXᵇ) passes either Xᴮ or Xᵇ to her son (who gets Y from dad) → 50% chance!"}, {"id": 68, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "A molecular geneticist discovers a mutation in a bacterial gene caused by the insertion of a single extra nucleotide near the beginning of the coding sequence. Because ribosomes read mRNA in non-overlapping groups of three nucleotides (codons), this insertion shifts the reading frame for every single codon downstream of the mutation, producing a completely nonfunctional protein. What type of mutation is this?", "correct": "Frameshift mutation", "trap": "Silent substitution", "randoms": ["Polyploidy", "Nondisjunction"], "explanation": "Inserting or deleting a number of nucleotides not divisible by three shifts the triplet reading frame downstream.", "hack": "Insert/delete 1 or 2 bases → shifts the 3-letter codon FRAME = FRAMESHIFT!"}, {"id": 69, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "During DNA replication in preparation for cell division, an enzyme unwinds the double helix, and DNA polymerase synthesizes two new complementary strands using each original strand as a template. As a result, each newly formed DNA double helix consists of one original parental strand and one newly synthesized strand. How is this mechanism of DNA replication described?", "correct": "Semiconservative replication", "trap": "Conservative replication", "randoms": ["Dispersive replication (mixed pieces)", "Reverse transcription into DNA"], "explanation": "Each new DNA double helix retains one original template strand paired with one newly synthesized strand.", "hack": "1 old strand + 1 new strand in each helix = SEMI-conservative (half conserved)!"}, {"id": 70, "category": "119.2.5", "unit": "119.2.5 · Genetics", "q": "A genetics student is tracing the flow of genetic information inside a eukaryotic cell from a gene stored in the nucleus to a functional enzyme working in the cytoplasm. Which sequence accurately represents the central dogma of molecular biology?", "correct": "DNA → RNA → Protein", "trap": "RNA → DNA → Protein", "randoms": ["Protein → RNA → DNA", "DNA → Protein → RNA"], "explanation": "Genetic information is transcribed from DNA into mRNA and then translated by ribosomes into protein.", "hack": "Central Dogma: DNA → RNA (Transcription) → Protein (Translation)!"}];
+
+    const state = {
+      examQuestions: [],
+      currentIndex: 0,
+      answers: {},
+      optionsByQ: {},
+      flagged: new Set(),
+      timed: true,
+      instantMode: true,
+      secondsRemaining: 120 * 60,
+      secondsElapsed: 0,
+      timerHandle: null,
+      reviewFilter: "all",
+      submitted: false,
+      neuralEnabled: true,
+      piperVoice: "en_US-hfc_female-medium",
+      piperPace: 0.88,
+      vits: null,
+      vitsLoading: null,
+      playToken: 0,
+      wordSpans: [],
+      activeAudioUrl: null,
+      rafSyncHandle: null,
+      boosters: {
+        microSprint: false,
+        blindRecall: false,
+        confidence: false,
+        elaboration: false,
+        requeue: false,
+        leitner: false,
+        pictureCue: false
+      },
+      confidenceByQ: {},
+      blindRevealedByQ: {},
+      requeuedIds: new Set(),
+      requeuedPositions: new Set(),
+      leitnerStore: {},
+      blindTimerHandle: null,
+      blindSecondsLeft: 0,
+      nextLockHandle: null,
+      nextLockSeconds: 0,
+      elabConfirmedByQ: {},
+      // --- resume / pause / persistence ---
+      paused: false,
+      pauseReason: "",
+      discardArmed: false,
+      lastTickAt: 0,
+      accMs: 0,
+      lastActivityAt: 0,
+      lastPeriodicSave: 0,
+      sessionActive: false,
+      saveBlocked: false,
+      savedAt: 0,
+      finishedAt: 0,
+      blindArmedIdx: -1,
+      // --- neural reader ---
+      synthChain: Promise.resolve(),
+      audioCache: new Map(),
+      watchdogHandle: null,
+      hlIdx: -1
+    };
+
+    // =========================================================================
+    // STORAGE + RESUME: survives reloads, idle time, sleep, discarded tabs, going offline
+    // =========================================================================
+    const SESSION_KEY = "wgu_c190_session_v1";
+    const PREFS_KEY = "wgu_c190_prefs_v1";
+    const SNAPSHOT_VERSION = 1;
+    const IDLE_LIMIT_MS = 5 * 60 * 1000;   // no interaction for this long => auto-pause
+    const MAX_TICK_GAP_MS = 5000;          // a larger gap between clock ticks means the device slept
+    const OPT_TOKENS = ["c", "t", "r0", "r1"];
+    const VOICE_IDS = ["en_US-hfc_female-medium", "en_US-amy-medium", "en_US-lessac-medium", "en_US-ryan-medium"];
+    const BANK_BY_ID = new Map(BANK_70.map(q => [q.id, q]));
+    const $ = id => document.getElementById(id);
+
+    // localStorage -> sessionStorage -> in-memory, so a blocked/full storage never breaks the exam itself.
+    const Store = (() => {
+      const mem = {};
+      let backend = null;
+      let mode = "memory";
+      const works = s => { try { const k = "__wgu_probe__"; s.setItem(k, "1"); s.removeItem(k); return true; } catch (err) { return false; } };
+      try { if (window.localStorage && works(window.localStorage)) { backend = window.localStorage; mode = "local"; } } catch (err) {}
+      if (!backend) { try { if (window.sessionStorage && works(window.sessionStorage)) { backend = window.sessionStorage; mode = "session"; } } catch (err) {} }
+      return {
+        mode,
+        get(k) { try { return backend ? backend.getItem(k) : (Object.prototype.hasOwnProperty.call(mem, k) ? mem[k] : null); } catch (err) { return null; } },
+        set(k, v) { try { if (backend) backend.setItem(k, v); else mem[k] = v; return true; } catch (err) { return false; } },
+        remove(k) { try { if (backend) backend.removeItem(k); else delete mem[k]; } catch (err) {} }
+      };
+    })();
+
+    let saveTimer = null;
+
+    function makeOption(q, tok) {
+      if (tok === "c") return { text: q.correct, type: "correct", tok };
+      if (tok === "t") return { text: q.trap, type: "trap", tok };
+      return { text: q.randoms[tok === "r0" ? 0 : 1], type: "random", tok };
+    }
+
+    function serializeSession() {
+      return {
+        v: SNAPSHOT_VERSION,
+        savedAt: Date.now(),
+        status: state.submitted ? "submitted" : "active",
+        finishedAt: state.finishedAt || 0,
+        qIds: state.examQuestions.map(q => q.id),
+        opts: state.examQuestions.map((q, i) => (state.optionsByQ[i] || []).map(o => o.tok)),
+        cur: state.currentIndex,
+        answers: state.answers,
+        flagged: Array.from(state.flagged),
+        conf: state.confidenceByQ,
+        blind: state.blindRevealedByQ,
+        elab: state.elabConfirmedByQ,
+        reqIds: Array.from(state.requeuedIds),
+        reqPos: Array.from(state.requeuedPositions),
+        timed: state.timed,
+        remaining: state.secondsRemaining,
+        elapsed: state.secondsElapsed,
+        neural: state.neuralEnabled,
+        voice: state.piperVoice,
+        pace: state.piperPace,
+        boosters: state.boosters,
+        filter: state.reviewFilter
+      };
+    }
+
+    // Strictly validates a stored snapshot; anything unexpected => null (start fresh) rather than a crash.
+    function parseSession(raw) {
+      if (!raw) return null;
+      let d;
+      try { d = JSON.parse(raw); } catch (err) { return null; }
+      if (!d || d.v !== SNAPSHOT_VERSION || !Array.isArray(d.qIds) || !Array.isArray(d.opts)) return null;
+      const n = d.qIds.length;
+      if (n < 1 || n > 300 || d.opts.length !== n) return null;
+      const questions = [];
+      const optionsByQ = {};
+      for (let i = 0; i < n; i++) {
+        const q = BANK_BY_ID.get(d.qIds[i]);
+        const toks = d.opts[i];
+        if (!q || !Array.isArray(toks) || toks.length !== 4 || !OPT_TOKENS.every(t => toks.includes(t))) return null;
+        questions.push(q);
+        optionsByQ[i] = toks.map(t => makeOption(q, t));
+      }
+      const inRange = i => Number.isInteger(i) && i >= 0 && i < n;
+      const keyed = (obj, ok) => {
+        const out = {};
+        if (obj && typeof obj === "object") {
+          Object.keys(obj).forEach(k => { const i = Number(k); if (inRange(i) && ok(obj[k])) out[i] = obj[k]; });
+        }
+        return out;
+      };
+      const idxSet = arr => new Set((Array.isArray(arr) ? arr : []).filter(inRange));
+      const num = (v, fallback, max) => (typeof v === "number" && isFinite(v) && v >= 0 ? Math.min(v, max) : fallback);
+      const boosters = {};
+      Object.keys(state.boosters).forEach(k => { boosters[k] = !!(d.boosters && d.boosters[k]); });
+      return {
+        examQuestions: questions,
+        optionsByQ,
+        currentIndex: inRange(d.cur) ? d.cur : 0,
+        answers: keyed(d.answers, v => Number.isInteger(v) && v >= 0 && v < 4),
+        flagged: idxSet(d.flagged),
+        confidenceByQ: keyed(d.conf, v => v === "guess" || v === "shaky" || v === "sure"),
+        blindRevealedByQ: keyed(d.blind, v => v === true),
+        elabConfirmedByQ: keyed(d.elab, v => v === true),
+        requeuedIds: new Set((Array.isArray(d.reqIds) ? d.reqIds : []).filter(id => BANK_BY_ID.has(id))),
+        requeuedPositions: idxSet(d.reqPos),
+        timed: !!d.timed,
+        secondsRemaining: num(d.remaining, 120 * 60, 120 * 60),
+        secondsElapsed: num(d.elapsed, 0, 1e7),
+        neuralEnabled: !!d.neural,
+        piperVoice: VOICE_IDS.includes(d.voice) ? d.voice : VOICE_IDS[0],
+        piperPace: num(d.pace, 0.88, 1.5) || 0.88,
+        boosters,
+        reviewFilter: ["all", "missed", "traps", "flagged"].includes(d.filter) ? d.filter : "all",
+        submitted: d.status === "submitted",
+        finishedAt: num(d.finishedAt, 0, Number.MAX_SAFE_INTEGER),
+        savedAt: num(d.savedAt, 0, Number.MAX_SAFE_INTEGER)
+      };
+    }
+
+    function applySession(s) {
+      Object.assign(state, s);
+      state._renderedQIdx = -1;
+      state.blindArmedIdx = -1;
+      state.nextLockSeconds = 0;
+      state.sessionActive = true;
+      state.saveBlocked = false;
+    }
+
+    function updateSaveIndicator(stored) {
+      const el = $("saveStatus");
+      if (!el) return;
+      if (stored && Store.mode === "local") { el.textContent = "✓ Progress saved"; el.className = "save-ok"; }
+      else if (stored && Store.mode === "session") { el.textContent = "Saved for this tab only"; el.className = "save-bad"; }
+      else { el.textContent = "⚠ Progress not saved"; el.className = "save-bad"; }
+    }
+
+    function scheduleSave() {
+      if (!state.sessionActive || state.saveBlocked || saveTimer) return;
+      saveTimer = setTimeout(flushSave, 400);
+    }
+
+    function flushSave() {
+      if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
+      if (!state.sessionActive || state.saveBlocked || !state.examQuestions.length) return;
+      const data = serializeSession();
+      state.savedAt = data.savedAt;                        // newest write this page knows about (see "storage" listener)
+      updateSaveIndicator(Store.set(SESSION_KEY, JSON.stringify(data)));
+    }
+
+    function timeAgo(ts) {
+      const s = Math.max(0, Math.round((Date.now() - ts) / 1000));
+      if (s < 45) return "just now";
+      const m = Math.round(s / 60);
+      if (m < 60) return `${m} min ago`;
+      const h = Math.round(m / 60);
+      if (h < 48) return `${h} hr ago`;
+      return `${Math.round(h / 24)} days ago`;
+    }
+
+    function toast(msg, ms) {
+      const host = $("toastHost");
+      if (!host) return;
+      const el = document.createElement("div");
+      el.className = "toast";
+      el.textContent = msg;
+      host.appendChild(el);
+      while (host.children.length > 3) host.removeChild(host.firstChild);
+      setTimeout(() => { el.classList.add("out"); setTimeout(() => el.remove(), 350); }, ms || 4500);
+    }
+
+    // ----- Start-screen preferences (remembered between visits) -----
+    const PREF_FIELDS = ["optTimed", "optSessionSize", "optNeuralReader", "optPiperVoice", "optPiperPace",
+      "optMicroSprint", "optBlindRecall", "optConfidence", "optElaboration", "optRequeue", "optLeitner", "optPictureCue"];
+
+    function savePrefs() {
+      const p = {};
+      PREF_FIELDS.forEach(id => { const el = $(id); if (el) p[id] = el.type === "checkbox" ? el.checked : el.value; });
+      Store.set(PREFS_KEY, JSON.stringify(p));
+    }
+
+    function loadPrefs() {
+      let p = null;
+      try { p = JSON.parse(Store.get(PREFS_KEY) || "null"); } catch (err) {}
+      if (!p || typeof p !== "object") return;
+      PREF_FIELDS.forEach(id => {
+        const el = $(id);
+        if (!el || !(id in p)) return;
+        if (el.type === "checkbox") el.checked = p[id] === true;
+        else if (Array.from(el.options).some(o => o.value === String(p[id]))) el.value = String(p[id]);
+      });
+    }
+
+    function syncStartScreenLabels() {
+      const chks = Array.from(document.querySelectorAll(".booster-chk"));
+      $("btnToggleAllBoosters").textContent = chks.every(c => c.checked)
+        ? "Turn All Memory Boosters OFF"
+        : "Turn All Memory Boosters ON";
+      const v = $("optSessionSize").value;
+      $("btnStartExam").textContent = v === "due"
+        ? "Begin Leitner Review (Due Today)"
+        : (v === "70" ? "Begin 70-Question Mock Exam" : `Begin ${v}-Question Session`);
+    }
+
+    const LEITNER_KEY = "wgu_c190_leitner_v1";
+    const LEITNER_DAYS = [0, 1, 3, 7]; // Box 1=today, Box 2=+1d, Box 3=+3d, Box 4=+7d
+
+    function loadLeitner() {
+      try {
+        const raw = Store.get(LEITNER_KEY);
+        if (raw) state.leitnerStore = JSON.parse(raw) || {};
+      } catch (err) { state.leitnerStore = {}; }
+      updateLeitnerBadge();
+    }
+
+    function saveLeitner() {
+      Store.set(LEITNER_KEY, JSON.stringify(state.leitnerStore));
+    }
+
+    function getDueQuestionIds() {
+      const now = Date.now();
+      return BANK_70.filter(q => {
+        const rec = state.leitnerStore[q.id];
+        return !rec || rec.nextDue <= now;
+      }).map(q => q.id);
+    }
+
+    function updateLeitnerRecord(qId, isCorrect) {
+      if (!state.boosters.leitner) return;
+      const prev = state.leitnerStore[qId] || { box: 1, nextDue: 0 };
+      const nextBox = isCorrect ? Math.min(4, prev.box + 1) : 1;
+      const days = LEITNER_DAYS[nextBox - 1] || 0;
+      state.leitnerStore[qId] = {
+        box: nextBox,
+        nextDue: Date.now() + days * 86400000
+      };
+      saveLeitner();
+      updateLeitnerBadge();
+    }
+
+    function updateLeitnerBadge() {
+      const el = document.getElementById("leitnerDueBadge");
+      if (el) el.textContent = `Leitner Due: ${getDueQuestionIds().length}`;
+    }
+
+    function shuffle(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function escapeHTML(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function getCladogramSVG() {
+      return `
+        <svg viewBox="0 0 540 205" style="width:100%;max-height:210px;display:block;margin:0 auto;" role="img" aria-label="Vertebrate Cladogram Diagram">
+          <rect width="540" height="205" rx="8" fill="#ffffff"/>
+          <text x="48" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">Hagfish</text>
+          <text x="132" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">Perch</text>
+          <text x="224" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">Salamander</text>
+          <text x="318" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">Turtle</text>
+          <text x="410" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">Wolf</text>
+          <text x="492" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#0f172a">Chimpanzee</text>
+          <path d="M48 30 V176 M132 30 V146 M224 30 V116 M318 30 V86 M410 30 V56 M492 30 V56" stroke="#1e293b" stroke-width="2.2" fill="none"/>
+          <path d="M48 176 H451 M132 146 H451 M224 116 H451 M318 86 H451 M410 56 H492 M451 56 V176" stroke="#1e293b" stroke-width="2.2" fill="none"/>
+          <circle cx="48" cy="176" r="4.5" fill="#002F5F"/><text x="58" y="191" font-size="10" font-weight="700" fill="#002F5F">Node 1: Skull / cranium</text>
+          <circle cx="132" cy="146" r="4.5" fill="#002F5F"/><text x="142" y="161" font-size="10" font-weight="700" fill="#002F5F">Node 2: Bony skeleton</text>
+          <circle cx="224" cy="116" r="4.5" fill="#002F5F"/><text x="234" y="131" font-size="10" font-weight="700" fill="#002F5F">Node 3: Four limbs</text>
+          <circle cx="318" cy="86" r="4.5" fill="#059669"/><text x="328" y="101" font-size="10" font-weight="700" fill="#059669">Node 4: Amniotic egg</text>
+          <circle cx="451" cy="56" r="4.5" fill="#d97706"/><text x="336" y="45" font-size="10" font-weight="700" fill="#b45309">Node 5: Hair &amp; mammary glands</text>
+        </svg>`;
+    }
+
+    // =========================================================================
+    // @diffusionstudio/vits-web (PIPER NEURAL AI) SENTENCE-CHUNKED READER
+    // =========================================================================
+    function normalizeForSpeech(text) {
+      return text
+        .replace(/¹⁴CO₂/g, "carbon 14 C O 2")
+        .replace(/CO₂/g, "C O 2")
+        .replace(/H₂O/g, "H 2 O")
+        .replace(/O₂/g, "O 2")
+        .replace(/N₂/g, "N 2")
+        .replace(/NH₃/g, "ammonia")
+        .replace(/C₆H₁₂O₆/g, "glucose")
+        .replace(/H⁺/g, "hydrogen ion")
+        .replace(/OH⁻/g, "hydroxide ion")
+        .replace(/Na⁺/g, "sodium ion")
+        .replace(/K⁺/g, "potassium ion")
+        .replace(/Cl⁻/g, "chloride ion")
+        .replace(/3'-T-A-C-G-G-A-T-C-A-5'/g, "3 prime, T, A, C, G, G, A, T, C, A, 5 prime")
+        .replace(/3'-G-A-A-5'/g, "3 prime, G, A, A, 5 prime")
+        .replace(/3'-G-A-G-5'/g, "3 prime, G, A, G, 5 prime")
+        .replace(/5'-C-U-U-3'/g, "5 prime, C, U, U, 3 prime")
+        .replace(/5'-C-U-C-3'/g, "5 prime, C, U, C, 3 prime")
+        .replace(/CᴿCᴿ/g, "C R C R")
+        .replace(/CᵂCᵂ/g, "C W C W")
+        .replace(/CᴿCᵂ/g, "C R C W")
+        .replace(/Iᴬi/g, "I A, little i")
+        .replace(/Iᴮi/g, "I B, little i")
+        .replace(/Iᴬ/g, "I A")
+        .replace(/Iᴮ/g, "I B")
+        .replace(/XᴮXᵇ/g, "X big B, X little b")
+        .replace(/—/g, ", ")
+        .replace(/→/g, " to ");
+    }
+
+    async function ensureVitsLoaded(onStatus) {
+      if (state.vits) return state.vits;
+      if (!state.vitsLoading) {
+        // Pinned version: an unpinned "latest" could change its API underneath this page.
+        state.vitsLoading = import("https://cdn.jsdelivr.net/npm/@diffusionstudio/vits-web@1.0.3/+esm").then(mod => {
+          state.vits = mod;
+          return mod;
+        }).catch(err => {
+          state.vitsLoading = null;   // a failed load (e.g. while offline) must be retryable on the next question
+          throw err;
+        });
+      }
+      if (onStatus) onStatus("Loading Piper Neural Engine...");
+      return await state.vitsLoading;
+    }
+
+    function unlockAudioElement() {
+      // Unlock single persistent <audio> element on user click for iOS/Safari/Chrome autoplay
+      try {
+        const player = document.getElementById("piperAudioPlayer");
+        if (!player) return;
+        player.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
+        player.play().then(() => player.pause()).catch(() => {});
+      } catch (err) {}
+    }
+
+    function clearGateTimers() {
+      if (state.blindTimerHandle) { clearInterval(state.blindTimerHandle); state.blindTimerHandle = null; }
+      if (state.nextLockHandle) { clearInterval(state.nextLockHandle); state.nextLockHandle = null; }
+    }
+
+    function startBlindRecallTimer(seconds) {
+      if (state.blindTimerHandle) { clearInterval(state.blindTimerHandle); state.blindTimerHandle = null; }
+      const btn = document.getElementById("btnRevealChoices");
+      if (!btn) return;
+      if (seconds <= 0) {
+        btn.disabled = false;
+        btn.textContent = "Reveal A–D Choices";
+        return;
+      }
+      state.blindSecondsLeft = seconds;
+      btn.disabled = true;
+      btn.textContent = `Think & Recall (${state.blindSecondsLeft}s)...`;
+      state.blindTimerHandle = setInterval(() => {
+        state.blindSecondsLeft = Math.max(0, state.blindSecondsLeft - 1);
+        if (state.blindSecondsLeft <= 0) {
+          clearInterval(state.blindTimerHandle);
+          state.blindTimerHandle = null;
+          btn.disabled = false;
+          btn.textContent = "Reveal A–D Choices";
+        } else {
+          btn.textContent = `Think & Recall (${state.blindSecondsLeft}s)...`;
+        }
+      }, 1000);
+    }
+
+    function startNextPacingLock(seconds, label) {
+      if (state.nextLockHandle) { clearInterval(state.nextLockHandle); state.nextLockHandle = null; }
+      const nextBtn = document.getElementById("btnNextQ");
+      if (!nextBtn) return;
+      state.nextLockSeconds = seconds;
+      nextBtn.disabled = true;
+      nextBtn.textContent = `${label} (${state.nextLockSeconds}s)...`;
+      state.nextLockHandle = setInterval(() => {
+        state.nextLockSeconds = Math.max(0, state.nextLockSeconds - 1);
+        if (state.nextLockSeconds <= 0) {
+          clearInterval(state.nextLockHandle);
+          state.nextLockHandle = null;
+          updateNextButtonState();
+        } else {
+          nextBtn.textContent = `${label} (${state.nextLockSeconds}s)...`;
+        }
+      }, 1000);
+    }
+
+    function updateNextButtonState() {
+      const nextBtn = document.getElementById("btnNextQ");
+      if (!nextBtn) return;
+      const idx = state.currentIndex;
+      const total = state.examQuestions.length;
+      const chosen = state.answers[idx];
+      const isLast = idx === total - 1;
+      const baseLabel = isLast ? "Review & Submit" : "Next →";
+
+      if (state.nextLockSeconds > 0) {
+        nextBtn.disabled = true;
+        return;
+      }
+      if (chosen !== undefined) {
+        const picked = state.optionsByQ[idx][chosen];
+        const isWrong = picked && picked.type !== "correct";
+        if (isWrong && state.boosters.elaboration && !state.elabConfirmedByQ[idx]) {
+          nextBtn.disabled = true;
+          nextBtn.textContent = "Confirm Trap Check Above";
+          return;
+        }
+      }
+      nextBtn.disabled = false;
+      nextBtn.textContent = baseLabel;
+    }
+
+    function stopPiperAudio() {
+      state.playToken++;
+      if (state.watchdogHandle) { clearTimeout(state.watchdogHandle); state.watchdogHandle = null; }
+      if (state.rafSyncHandle) { cancelAnimationFrame(state.rafSyncHandle); state.rafSyncHandle = null; }
+      const player = document.getElementById("piperAudioPlayer");
+      if (player) {
+        player.onended = null;
+        player.onerror = null;
+        try { player.pause(); } catch (err) {}
+      }
+      if (state.activeAudioUrl) {
+        try { URL.revokeObjectURL(state.activeAudioUrl); } catch (err) {}
+        state.activeAudioUrl = null;
+      }
+    }
+
+    function buildWordSpans(text) {
+      const p = document.getElementById("examQuestionText");
+      const tokens = text.split(/(\s+)/);
+      state.wordSpans = [];
+      state.hlIdx = -1;
+      const frag = document.createDocumentFragment();
+      tokens.forEach(tok => {
+        if (!tok) return;
+        if (/^\s+$/.test(tok)) {
+          frag.appendChild(document.createTextNode(tok));
+        } else {
+          const span = document.createElement("span");
+          span.className = state.neuralEnabled ? "q-word concealed" : "q-word revealed";
+          span.textContent = tok;
+          state.wordSpans.push(span);
+          frag.appendChild(span);
+        }
+      });
+      p.innerHTML = "";
+      p.appendChild(frag);
+    }
+
+    function revealAllWords() {
+      stopPiperAudio();
+      state.wordSpans.forEach(sp => {
+        sp.classList.remove("concealed", "speaking");
+        sp.classList.add("revealed");
+      });
+      const st = document.getElementById("piperStatus");
+      if (st) st.textContent = "Question revealed";
+      armBlindRecall(8);
+      const pp = document.getElementById("btnPiperPlayPause");
+      if (pp) pp.textContent = "Pause";
+    }
+
+    // Starts the blind-recall countdown at most once per visit to a question.
+    function armBlindRecall(seconds) {
+      const idx = state.currentIndex;
+      if (!state.boosters.blindRecall || state.blindRevealedByQ[idx] || state.blindArmedIdx === idx) return;
+      if (state.answers[idx] !== undefined) return;
+      state.blindArmedIdx = idx;
+      startBlindRecallTimer(seconds);
+    }
+
+    // Shows the question text without interrupting audio that is still loading.
+    function showTextKeepAudio() {
+      state.wordSpans.forEach(sp => {
+        if (sp.classList.contains("concealed")) { sp.classList.remove("concealed"); sp.classList.add("revealed"); }
+      });
+      armBlindRecall(8);
+    }
+
+    function highlightWordRange(wordIdx) {
+      if (wordIdx === state.hlIdx) return;
+      state.hlIdx = wordIdx;
+      for (let i = 0; i <= wordIdx && i < state.wordSpans.length; i++) {
+        const sp = state.wordSpans[i];
+        sp.classList.remove("concealed");
+        if (i === wordIdx) {
+          sp.classList.remove("revealed");
+          sp.classList.add("speaking");
+        } else {
+          sp.classList.remove("speaking");
+          sp.classList.add("revealed");
+        }
+      }
+    }
+
+    async function speakWithPiper(text) {
+      stopPiperAudio();
+      if (!state.neuralEnabled || state.paused) return;
+
+      const token = state.playToken;
+      const voiceId = state.piperVoice;
+      const statusEl = document.getElementById("piperStatus");
+      const ppBtn = document.getElementById("btnPiperPlayPause");
+      if (ppBtn) ppBtn.textContent = "Pause";
+
+      state.wordSpans.forEach(sp => {
+        sp.classList.remove("revealed", "speaking");
+        sp.classList.add("concealed");
+      });
+      state.hlIdx = -1;
+
+      // If no audio is ready within 10s (first-time model download, slow or dropped connection) show the
+      // text so a timed exam is never stuck on blank boxes. Audio still starts by itself if it arrives later.
+      let audioReady = false;
+      state.watchdogHandle = setTimeout(() => {
+        state.watchdogHandle = null;
+        if (token !== state.playToken || audioReady) return;
+        showTextKeepAudio();
+        if (statusEl) statusEl.textContent = navigator.onLine === false
+          ? "Offline — showing text (voice resumes when the connection returns)"
+          : "Voice is still loading — showing text";
+      }, 10000);
+
+      let vits;
+      try {
+        vits = await ensureVitsLoaded(msg => { if (statusEl && token === state.playToken) statusEl.textContent = msg; });
+      } catch (err) {
+        if (token !== state.playToken) return;
+        revealAllWords();
+        if (statusEl) statusEl.textContent = "Neural voice unavailable (offline?) — showing text";
+        return;
+      }
+      if (token !== state.playToken) return;
+
+      // Split into sentences and map each sentence to its word index range
+      const rawSentences = (text.match(/[^.!?]+[.!?]*/g) || [text]).map(s => s.trim()).filter(Boolean);
+      const ranges = [];
+      let cursor = 0;
+      rawSentences.forEach(s => {
+        const count = s.split(/\s+/).length;
+        ranges.push({ text: normalizeForSpeech(s), start: cursor, count });
+        cursor += count;
+      });
+
+      const synthSentence = (idx) => {
+        if (idx >= ranges.length) return Promise.resolve(null);
+        const sentence = ranges[idx].text;
+        const key = voiceId + "|" + sentence;
+        const cached = state.audioCache.get(key);
+        if (cached) return Promise.resolve(cached);        // replays and revisits are instant
+        // One synthesis at a time: overlapping calls during the first model download would each fetch the
+        // whole voice model. Jobs for questions the user has already left are skipped.
+        const run = () => {
+          if (token !== state.playToken) return null;
+          return vits.predict({ text: sentence, voiceId }, p => {
+            if (p && p.total && token === state.playToken && statusEl) {
+              const pct = Math.round((p.loaded / p.total) * 100);
+              if (pct < 100) statusEl.textContent = `Caching voice model (${pct}%)...`;
+            }
+          }).then(blob => {
+            state.audioCache.set(key, blob);
+            if (state.audioCache.size > 40) state.audioCache.delete(state.audioCache.keys().next().value);
+            return blob;
+          });
+        };
+        const job = state.synthChain.then(run);
+        state.synthChain = job.catch(() => {});
+        return job;
+      };
+
+      const player = document.getElementById("piperAudioPlayer");
+      let nextPromise = synthSentence(0);
+      nextPromise.catch(() => {});                           // handled here; a failure still surfaces when awaited
+
+      for (let i = 0; i < ranges.length; i++) {
+        if (token !== state.playToken) return;
+        if (statusEl) statusEl.textContent = i === 0 ? "Synthesizing..." : `Reading (${i + 1}/${ranges.length})...`;
+
+        let wavBlob;
+        try {
+          wavBlob = await nextPromise;
+        } catch (err) {
+          if (token !== state.playToken) return;
+          revealAllWords();
+          if (statusEl) statusEl.textContent = "Neural voice unavailable (offline?) — showing text";
+          return;
+        }
+        if (token !== state.playToken || !wavBlob) return;
+        audioReady = true;
+        if (state.watchdogHandle) { clearTimeout(state.watchdogHandle); state.watchdogHandle = null; }
+
+        // Lookahead prefetch: synthesize NEXT sentence while current sentence plays!
+        nextPromise = (i + 1 < ranges.length) ? synthSentence(i + 1) : Promise.resolve(null);
+        nextPromise.catch(() => {});
+
+        if (state.activeAudioUrl) { URL.revokeObjectURL(state.activeAudioUrl); state.activeAudioUrl = null; }
+        const url = URL.createObjectURL(wavBlob);
+        state.activeAudioUrl = url;
+        player.src = url;
+        player.playbackRate = state.piperPace;
+
+        const range = ranges[i];
+        if (statusEl) statusEl.textContent = `Reading (${i + 1}/${ranges.length})...`;
+
+        await new Promise(resolve => {
+          const syncLoop = () => {
+            if (token !== state.playToken) return;
+            if (player.duration && player.duration > 0 && !player.paused) {
+              const frac = Math.min(0.999, player.currentTime / player.duration);
+              const wOffset = Math.min(range.count - 1, Math.floor(frac * range.count));
+              highlightWordRange(range.start + wOffset);
+            }
+            if (!player.ended && token === state.playToken) {
+              state.rafSyncHandle = requestAnimationFrame(syncLoop);
+            }
+          };
+          player.onended = () => {
+            if (state.rafSyncHandle) { cancelAnimationFrame(state.rafSyncHandle); state.rafSyncHandle = null; }
+            highlightWordRange(range.start + range.count - 1);
+            resolve();
+          };
+          player.onerror = () => resolve();
+          player.play().then(() => {
+            state.rafSyncHandle = requestAnimationFrame(syncLoop);
+          }).catch(() => resolve());
+        });
+      }
+
+      if (token === state.playToken) {
+        state.wordSpans.forEach(sp => { sp.classList.remove("concealed", "speaking"); sp.classList.add("revealed"); });
+        if (statusEl) statusEl.textContent = "Finished reading";
+        armBlindRecall(8);
+      }
+    }
+
+    function showScreen(id) {
+      ["viewStart", "viewExam", "viewResults"].forEach(s => {
+        document.getElementById(s).classList.toggle("hidden", s !== id);
+      });
+      if (id !== "viewExam") stopPiperAudio();
+      document.getElementById("examHudControls").classList.toggle("hidden", id !== "viewExam");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function formatClock(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+
+    function stopClock() {
+      if (state.timerHandle) {
+        clearInterval(state.timerHandle);
+        state.timerHandle = null;
+      }
+    }
+
+    function renderClock() {
+      const disp = $("timerDisplay");
+      const base = state.timed ? formatClock(state.secondsRemaining) : "Untimed";
+      disp.textContent = state.paused ? `⏸ ${base}` : base;
+      disp.classList.toggle("timer-warn", state.timed && state.secondsRemaining <= 300);
+      disp.setAttribute("aria-label", state.paused ? "Exam paused" : `Pause exam (${base})`);
+    }
+
+    // The clock only advances while the exam is really being used: it does not run while the tab is hidden,
+    // the exam is paused, the user is idle, or the device was asleep. It is wall-clock based, so a throttled
+    // timer can never make it drift, and its value is saved with the session.
+    function startClock() {
+      stopClock();
+      state.lastTickAt = Date.now();
+      state.lastActivityAt = Date.now();
+      state.accMs = 0;
+      state.lastPeriodicSave = state.secondsElapsed;
+      renderClock();
+      state.timerHandle = setInterval(clockTick, 500);
+    }
+
+    function clockTick() {
+      const now = Date.now();
+      let delta = now - state.lastTickAt;
+      state.lastTickAt = now;
+      if (state.paused || state.submitted || document.hidden) return;
+      if (delta < 0 || delta > MAX_TICK_GAP_MS) delta = 0;     // slept or clock jumped: never charge that time
+      if (now - state.lastActivityAt > IDLE_LIMIT_MS) { pauseExam("idle"); return; }
+      state.accMs += delta;
+      if (state.accMs < 1000) return;
+      const whole = Math.floor(state.accMs / 1000);
+      state.accMs -= whole * 1000;
+      state.secondsElapsed += whole;
+      if (state.timed) state.secondsRemaining = Math.max(0, state.secondsRemaining - whole);
+      renderClock();
+      if (state.timed && state.secondsRemaining <= 0) {
+        toast("Time is up — grading your exam.");
+        gradeExam();
+        return;
+      }
+      if (state.secondsElapsed - state.lastPeriodicSave >= 5) {
+        state.lastPeriodicSave = state.secondsElapsed;
+        scheduleSave();
+      }
+    }
+
+    function showPauseModal(reason) {
+      const total = state.examQuestions.length;
+      const answered = Object.keys(state.answers).length;
+      const msgs = {
+        restore: ["Welcome back", "Your exam was saved on this device" + (state.savedAt ? ` (${timeAgo(state.savedAt)})` : "") +
+          " and is exactly where you left it. The timer was paused while you were away."],
+        idle: ["Still there?", "You were inactive for a while, so the timer paused automatically and the question is hidden. Nothing is lost."],
+        manual: ["Exam paused", "The timer is stopped and the question is hidden. Resume whenever you are ready."],
+        other: ["Open in another tab", "This exam was changed in another browser tab, so this tab paused to avoid overwriting that progress."]
+      };
+      const m = msgs[reason] || msgs.manual;
+      state.pauseReason = reason;
+      $("pauseTitle").textContent = m[0];
+      $("pauseBody").textContent = m[1];
+      const left = state.timed ? formatClock(state.secondsRemaining) : "Untimed";
+      $("pauseStats").innerHTML = [["Question", `${state.currentIndex + 1}/${total}`], ["Answered", `${answered}/${total}`], ["Time left", left]]
+        .map(([label, val]) => `<div class="stat-box"><div class="stat-label">${label}</div><div class="stat-val">${val}</div></div>`).join("");
+      $("btnResumeExam").textContent = reason === "other" ? "Load latest progress" : "Resume exam";
+      const discard = $("btnDiscardAttempt");
+      discard.classList.toggle("hidden", reason === "other");
+      discard.textContent = "Discard attempt";
+      state.discardArmed = false;
+      $("pauseModal").classList.remove("hidden");
+      $("topBar").inert = true;
+      document.querySelector("main").inert = true;
+      $("btnResumeExam").focus();
+    }
+
+    function hidePauseModal() {
+      $("pauseModal").classList.add("hidden");
+      $("topBar").inert = false;
+      document.querySelector("main").inert = false;
+    }
+
+    function pauseExam(reason) {
+      if (state.paused || state.submitted || !state.examQuestions.length || $("viewExam").classList.contains("hidden")) return;
+      state.paused = true;
+      stopPiperAudio();
+      clearGateTimers();
+      state._renderedQIdx = -1;            // on resume, re-read the question and restart any recall gate cleanly
+      ["navModal", "confirmModal"].forEach(id => $(id).classList.add("hidden"));
+      renderClock();
+      flushSave();
+      showPauseModal(reason);
+    }
+
+    function resumeExam() {
+      if (!state.paused) return;
+      state.paused = false;
+      state.lastTickAt = Date.now();
+      state.lastActivityAt = Date.now();
+      state.accMs = 0;
+      hidePauseModal();
+      if (state.neuralEnabled) unlockAudioElement();   // this click is the user gesture browsers require for audio
+      $("examTotalCounter").textContent = state.examQuestions.length;
+      renderClock();
+      renderQuestion();
+    }
+
+    function discardSession() {
+      if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
+      stopClock();
+      stopPiperAudio();
+      clearGateTimers();
+      if (!state.saveBlocked) Store.remove(SESSION_KEY);   // never delete a session another tab now owns
+      state.sessionActive = false;
+      state.saveBlocked = false;
+      state.paused = false;
+      state.submitted = false;
+      state.examQuestions = [];
+      hidePauseModal();
+      ["navModal", "confirmModal"].forEach(id => $(id).classList.add("hidden"));
+      showScreen("viewStart");
+    }
+
+    function buildOptionsFor(q) {
+      return shuffle(OPT_TOKENS.map(t => makeOption(q, t)));
+    }
+
+    function startExam(questionPool, opts) {
+      state.timed = document.getElementById("optTimed").checked;
+      state.instantMode = true;
+      state.neuralEnabled = document.getElementById("optNeuralReader").checked;
+      state.piperVoice = document.getElementById("optPiperVoice").value;
+      state.piperPace = parseFloat(document.getElementById("optPiperPace").value) || 0.88;
+
+      state.boosters = {
+        microSprint: document.getElementById("optMicroSprint").checked,
+        blindRecall: document.getElementById("optBlindRecall").checked,
+        confidence: document.getElementById("optConfidence").checked,
+        elaboration: document.getElementById("optElaboration").checked,
+        requeue: document.getElementById("optRequeue").checked,
+        leitner: document.getElementById("optLeitner").checked,
+        pictureCue: document.getElementById("optPictureCue").checked
+      };
+      savePrefs();   // remember the settings this attempt was started with
+
+      let sizeVal = document.getElementById("optSessionSize").value;
+      let workingPool = [...questionPool];
+      if (!(opts && opts.retake) && questionPool.length === BANK_70.length) {
+        if (sizeVal === "due") {
+          const dueSet = new Set(getDueQuestionIds());
+          const duePool = workingPool.filter(q => dueSet.has(q.id));
+          if (duePool.length > 0) workingPool = duePool;
+          else { toast("Nothing is due for review today, so a full set was started instead."); sizeVal = "70"; }
+        }
+        if (state.boosters.leitner && sizeVal !== "due") {
+          const dueSet = new Set(getDueQuestionIds());
+          const dueFirst = shuffle(workingPool.filter(q => dueSet.has(q.id)));
+          const restLater = shuffle(workingPool.filter(q => !dueSet.has(q.id)));
+          workingPool = [...dueFirst, ...restLater];
+        } else {
+          workingPool = shuffle(workingPool);
+        }
+        if (sizeVal !== "due" && sizeVal !== "70") {
+          workingPool = workingPool.slice(0, Number(sizeVal));
+        } else if (state.boosters.microSprint && sizeVal === "70") {
+          workingPool = workingPool.slice(0, 15);
+        }
+      } else {
+        workingPool = shuffle(workingPool);
+      }
+
+      const liveSel = document.getElementById("livePiperVoice");
+      if (liveSel) liveSel.value = state.piperVoice;
+      if (state.neuralEnabled) unlockAudioElement();
+      state.examQuestions = workingPool;
+      state.currentIndex = 0;
+      state._renderedQIdx = -1;
+      state.answers = {};
+      state.optionsByQ = {};
+      state.confidenceByQ = {};
+      state.blindRevealedByQ = {};
+      clearGateTimers();
+      state.requeuedIds = new Set();
+      state.requeuedPositions = new Set();
+      state.elabConfirmedByQ = {};
+      state.flagged = new Set();
+      state.secondsRemaining = 120 * 60;
+      state.secondsElapsed = 0;
+      state.submitted = false;
+      state.finishedAt = 0;
+      state.paused = false;
+      state.saveBlocked = false;
+      state.sessionActive = true;
+      state.blindArmedIdx = -1;
+      state.reviewFilter = "all";
+
+      state.examQuestions.forEach((q, idx) => {
+        state.optionsByQ[idx] = buildOptionsFor(q);
+      });
+
+      hidePauseModal();
+      document.getElementById("examTotalCounter").textContent = state.examQuestions.length;
+      showScreen("viewExam");
+      renderQuestion();
+      startClock();
+      flushSave();
+    }
+
+    function renderQuestion() {
+      const idx = state.currentIndex;
+      const total = state.examQuestions.length;
+      const q = state.examQuestions[idx];
+      const opts = state.optionsByQ[idx];
+      const chosen = state.answers[idx];
+      const answeredCount = Object.keys(state.answers).length;
+
+      document.getElementById("examQNumber").textContent = `Question ${idx + 1} of ${total}`;
+      document.getElementById("examCategoryTag").textContent = q.unit;
+      const lTag = document.getElementById("examLeitnerTag");
+      if (lTag) {
+        lTag.classList.toggle("hidden", !state.boosters.leitner);
+        const boxNum = (state.leitnerStore[q.id] && state.leitnerStore[q.id].box) || 1;
+        lTag.textContent = `Leitner Box ${boxNum}`;
+      }
+      const rqTag = document.getElementById("examRequeueTag");
+      if (rqTag) rqTag.classList.toggle("hidden", !state.requeuedPositions.has(idx));
+      const cladoBox = document.getElementById("cladogramDiagramBox");
+      if (cladoBox) {
+        const isCladogram = (q.id === 43 || q.id === 44 || q.id === 45);
+        cladoBox.classList.toggle("hidden", !isCladogram);
+        cladoBox.innerHTML = isCladogram ? getCladogramSVG() : "";
+      }
+      const piperBar = document.getElementById("piperBar");
+      if (piperBar) piperBar.classList.toggle("hidden", !state.neuralEnabled);
+      if (state._renderedQIdx !== idx) {
+        state._renderedQIdx = idx;
+        state.blindArmedIdx = -1;
+        clearGateTimers();
+        state.nextLockSeconds = 0;
+        const rInput = document.getElementById("blindRecallInput");
+        if (rInput) rInput.value = "";
+        buildWordSpans(q.q);
+        if (state.neuralEnabled) {
+          if (state.boosters.blindRecall && !state.blindRevealedByQ[idx]) {
+            const rBtn = document.getElementById("btnRevealChoices");
+            if (rBtn) { rBtn.disabled = true; rBtn.textContent = "Listening to question..."; }
+          }
+          if (!state.paused) speakWithPiper(q.q);
+        } else {
+          armBlindRecall(10);
+        }
+      }
+      document.getElementById("examAnsweredCounter").textContent = answeredCount;
+      document.getElementById("navAnsweredCount").textContent = answeredCount;
+
+      const flagBtn = document.getElementById("btnFlagQuestion");
+      const isFlagged = state.flagged.has(idx);
+      flagBtn.textContent = isFlagged ? "Bookmarked" : "Bookmark for Review";
+      flagBtn.className = isFlagged ? "btn btn-sm btn-flagged" : "btn btn-sm btn-outline";
+
+      // Confidence Row
+      const confRow = document.getElementById("confidenceRow");
+      if (confRow) {
+        confRow.classList.toggle("hidden", !state.boosters.confidence);
+        const curConf = state.confidenceByQ[idx] || "";
+        confRow.querySelectorAll(".conf-pill").forEach(btn => {
+          btn.classList.remove("active-guess", "active-shaky", "active-sure");
+          if (btn.dataset.conf === curConf) {
+            btn.classList.add(curConf === "guess" ? "active-guess" : (curConf === "shaky" ? "active-shaky" : "active-sure"));
+          }
+        });
+      }
+
+      // Blind Recall Gate
+      const blindGate = document.getElementById("blindRecallGate");
+      const list = document.getElementById("examOptionsList");
+      const hideChoices = state.boosters.blindRecall && !state.blindRevealedByQ[idx] && chosen === undefined;
+      if (blindGate) blindGate.classList.toggle("hidden", !hideChoices);
+      list.classList.toggle("hidden", hideChoices);
+
+      const letters = ["A", "B", "C", "D"];
+      const needsConfidence = state.boosters.confidence && !state.confidenceByQ[idx] && chosen === undefined;
+      const confHint = needsConfidence
+        ? `<div style="font-size:12px;font-weight:700;color:#0369a1;padding:6px 10px;background:#e0f2fe;border:1px solid #bae6fd;border-radius:6px;">Select your confidence (Guessing / Shaky / Sure) above to unlock choices A–D.</div>`
+        : "";
+
+      list.innerHTML = confHint + opts.map((o, i) => {
+        const selected = chosen === i;
+        let cls = "";
+        if (state.instantMode && chosen !== undefined) {
+          if (o.type === "correct") cls = "correct";
+          else if (selected && o.type === "trap") cls = "trap";
+          else if (selected) cls = "wrong";
+        } else if (selected) {
+          cls = "selected";
+        }
+        return `
+          <button type="button" data-opt="${i}" class="opt-btn ${cls}" ${needsConfidence ? "disabled style=\"opacity:0.55;cursor:not-allowed;\"" : ""}>
+            <span class="opt-letter">${letters[i]}</span>
+            <span class="opt-text">${escapeHTML(o.text)}</span>
+          </button>`;
+      }).join("");
+
+      list.querySelectorAll(".opt-btn").forEach(btn => {
+        btn.addEventListener("click", () => selectOption(Number(btn.dataset.opt)));
+      });
+
+      const fbBox = document.getElementById("instantFeedbackBox");
+      if (state.instantMode && chosen !== undefined) {
+        const picked = opts[chosen];
+        const ok = picked.type === "correct";
+        const isTrap = picked.type === "trap";
+        fbBox.classList.remove("hidden");
+        fbBox.className = `feedback-box stack-sm ${ok ? "fb-ok" : (isTrap ? "fb-trap" : "fb-err")}`;
+        const cueHtml = state.boosters.pictureCue
+          ? `<div class="cue-box"><strong>Picture This:</strong> ${escapeHTML(q.hack)}</div>`
+          : `<div style="font-size:12px;font-weight:700;">Memory Cue: ${escapeHTML(q.hack)}</div>`;
+        const elabDone = !!state.elabConfirmedByQ[idx];
+        const elabHtml = (!ok && state.boosters.elaboration)
+          ? `<div class="elab-box stack-sm">
+               <div><strong>Why was the trap wrong?</strong> Compare <em>"${escapeHTML(q.trap)}"</em> against the verified rule: ${escapeHTML(q.explanation)}</div>
+               <button type="button" id="btnConfirmElab" class="btn btn-sm ${elabDone ? "btn-success" : "btn-primary"}">${elabDone ? "Confirmed — Ready to Continue" : "I See Why the Trap Was Wrong"}</button>
+             </div>`
+          : "";
+        const requeueNote = (!ok && state.boosters.requeue)
+          ? `<div style="font-size:11.5px;font-weight:700;color:#9f1239;">Re-queued 3 questions ahead so you can lock this in.</div>`
+          : "";
+        fbBox.innerHTML = `
+          <div style="font-weight:800;">${ok ? "Correct" : (isTrap ? "Confuser Trap Selected" : "Incorrect")}</div>
+          <div>${escapeHTML(q.explanation)}</div>
+          ${cueHtml}
+          ${elabHtml}
+          ${requeueNote}
+        `;
+      } else {
+        fbBox.classList.add("hidden");
+      }
+
+      const elabConfirmBtn = document.getElementById("btnConfirmElab");
+      if (elabConfirmBtn) {
+        elabConfirmBtn.addEventListener("click", () => {
+          state.elabConfirmedByQ[idx] = true;
+          renderQuestion();
+        });
+      }
+
+      const prevBtn = document.getElementById("btnPrevQ");
+      prevBtn.disabled = idx === 0;
+      updateNextButtonState();
+      scheduleSave();
+    }
+
+    // Everything keyed by question position must move when a question is inserted mid-exam. (Previously only the
+    // answer-option order moved, so answers / bookmarks / confidence ratings could end up on the wrong question
+    // if you re-queued after jumping around.)
+    function shiftIndexedState(insertAt) {
+      const shiftKeys = obj => {
+        const out = {};
+        Object.keys(obj).forEach(k => { const i = Number(k); out[i >= insertAt ? i + 1 : i] = obj[k]; });
+        return out;
+      };
+      const shiftSet = set => new Set(Array.from(set, i => (i >= insertAt ? i + 1 : i)));
+      state.answers = shiftKeys(state.answers);
+      state.optionsByQ = shiftKeys(state.optionsByQ);
+      state.confidenceByQ = shiftKeys(state.confidenceByQ);
+      state.blindRevealedByQ = shiftKeys(state.blindRevealedByQ);
+      state.elabConfirmedByQ = shiftKeys(state.elabConfirmedByQ);
+      state.flagged = shiftSet(state.flagged);
+      state.requeuedPositions = shiftSet(state.requeuedPositions);
+    }
+
+    function selectOption(optIdx) {
+      const idx = state.currentIndex;
+      const firstPick = state.answers[idx] === undefined;
+      state.answers[idx] = optIdx;
+      const q = state.examQuestions[idx];
+      const isCorrect = state.optionsByQ[idx][optIdx].type === "correct";
+
+      if (firstPick) {
+        updateLeitnerRecord(q.id, isCorrect);
+        if (!isCorrect && state.boosters.requeue && !state.requeuedIds.has(q.id)) {
+          state.requeuedIds.add(q.id);
+          const insertAt = Math.min(state.examQuestions.length, idx + 4);
+          state.examQuestions.splice(insertAt, 0, q);
+          shiftIndexedState(insertAt);
+          state.optionsByQ[insertAt] = buildOptionsFor(q);
+          state.requeuedPositions.add(insertAt);
+          document.getElementById("examTotalCounter").textContent = state.examQuestions.length;
+        }
+        if (!isCorrect && state.boosters.elaboration) {
+          startNextPacingLock(6, "Study Trap vs. Rule");
+        } else if (state.boosters.pictureCue) {
+          startNextPacingLock(3, "Picture This Cue");
+        }
+      }
+      renderQuestion();
+    }
+
+    function openNavModal() {
+      const grid = document.getElementById("navGrid");
+      grid.innerHTML = state.examQuestions.map((_, i) => {
+        const isAns = state.answers[i] !== undefined;
+        const isFlag = state.flagged.has(i);
+        const isCur = i === state.currentIndex;
+        let cls = "nav-cell";
+        if (isFlag) cls += " flag";
+        else if (isAns) cls += " ans";
+        if (isCur) cls += " cur";
+        return `<button data-jump="${i}" class="${cls}">${i + 1}</button>`;
+      }).join("");
+
+      grid.querySelectorAll(".nav-cell").forEach(b => {
+        b.addEventListener("click", () => {
+          state.currentIndex = Number(b.dataset.jump);
+          document.getElementById("navModal").classList.add("hidden");
+          renderQuestion();
+        });
+      });
+      document.getElementById("navModal").classList.remove("hidden");
+    }
+
+    function promptSubmit() {
+      const total = state.examQuestions.length;
+      const answered = Object.keys(state.answers).length;
+      const unanswered = total - answered;
+      document.getElementById("confirmMessage").textContent = unanswered > 0
+        ? `You have answered ${answered} of ${total} questions (${unanswered} unanswered). Submit and grade now?`
+        : `All ${total} questions answered. Ready to submit and view your WGU Competency Report?`;
+      document.getElementById("confirmModal").classList.remove("hidden");
+    }
+
+    function gradeExam() {
+      if (state.submitted) return;
+      stopClock();
+      clearGateTimers();
+      stopPiperAudio();
+      state.submitted = true;
+      state.finishedAt = Date.now();
+      document.getElementById("navModal").classList.add("hidden");
+      document.getElementById("confirmModal").classList.add("hidden");
+      renderResults();
+      showScreen("viewResults");
+      flushSave();
+    }
+
+    // Unique questions answered wrong (or skipped) at least once. A question re-queued mid-exam appears twice in
+    // examQuestions but is only offered once for a retake.
+    function getMissedQuestions() {
+      const seen = new Set();
+      const missed = [];
+      state.examQuestions.forEach((q, idx) => {
+        const c = state.answers[idx];
+        const ok = c !== undefined && state.optionsByQ[idx][c].type === "correct";
+        if (!ok && !seen.has(q.id)) { seen.add(q.id); missed.push(q); }
+      });
+      return missed;
+    }
+
+    function renderResults() {
+      const total = state.examQuestions.length;
+      let correct = 0;
+      let traps = 0;
+      let highConfWrong = 0;
+      const catStats = {};
+      COMPETENCIES.forEach(c => catStats[c.id] = { name: c.name, total: 0, correct: 0 });
+
+      state.examQuestions.forEach((q, idx) => {
+        const chosen = state.answers[idx];
+        const opts = state.optionsByQ[idx];
+        const picked = chosen !== undefined ? opts[chosen] : null;
+        catStats[q.category].total++;
+        if (picked && picked.type === "correct") {
+          correct++;
+          catStats[q.category].correct++;
+        } else {
+          if (picked && picked.type === "trap") traps++;
+          if (state.confidenceByQ[idx] === "sure") highConfWrong++;
+        }
+      });
+
+      const pct = Math.round((correct / total) * 100);
+      const mins = Math.floor(state.secondsElapsed / 60);
+      const secs = state.secondsElapsed % 60;
+
+      document.getElementById("resPercent").textContent = `${pct}%`;
+      document.getElementById("resRawScore").textContent = `${correct} / ${total} Correct`;
+      document.getElementById("resTimeUsed").textContent = `${mins}m ${secs}s`;
+      document.getElementById("resTrapsCount").textContent = traps;
+      document.getElementById("resHighConfWrong").textContent = highConfWrong;
+
+      let statusText = "Approaching Competency — Review missed items below and retake weak domains.";
+      if (pct >= 85) statusText = "Exemplary — Strong mastery across all 5 WGU C190 competencies.";
+      else if (pct >= 70) statusText = "Competent — Passing benchmark reached; review any confuser traps below.";
+      document.getElementById("resSubline").textContent = statusText;
+
+      const bars = document.getElementById("resCompetencyBars");
+      bars.innerHTML = COMPETENCIES.filter(c => catStats[c.id].total > 0).map(c => {
+        const st = catStats[c.id];
+        const cp = Math.round((st.correct / st.total) * 100);
+        const barColor = cp >= 70 ? "bg-green" : (cp >= 50 ? "bg-amber" : "bg-red");
+        const tag = cp >= 85 ? "Exemplary" : (cp >= 70 ? "Competent" : "Approaching Competency");
+        return `
+          <div class="stat-box stack-sm">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:12px;font-weight:700;">
+              <span>${c.id} · ${c.name}</span>
+              <span>${st.correct}/${st.total} (${cp}%) — ${tag}</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill ${barColor}" style="width:${cp}%"></div></div>
+          </div>`;
+      }).join("");
+
+      const missedCount = getMissedQuestions().length;
+      const retakeBtn = document.getElementById("btnRetakeMissed");
+      retakeBtn.classList.toggle("hidden", missedCount === 0);
+      document.getElementById("retakeMissedNum").textContent = missedCount;
+
+      $("resSavedNote").textContent = state.finishedAt
+        ? `Completed ${timeAgo(state.finishedAt)}. These results stay saved on this device until you start a new attempt.`
+        : "";
+      document.querySelectorAll(".filter-pill").forEach(b => {
+        b.classList.toggle("active", b.dataset.rfilter === state.reviewFilter);
+      });
+      renderReviewList();
+    }
+
+    function renderReviewList() {
+      const list = document.getElementById("reviewList");
+      const items = state.examQuestions.map((q, idx) => {
+        const chosen = state.answers[idx];
+        const opts = state.optionsByQ[idx];
+        const picked = chosen !== undefined ? opts[chosen] : null;
+        const isCorrect = !!(picked && picked.type === "correct");
+        const isTrap = !!(picked && picked.type === "trap");
+        const isFlagged = state.flagged.has(idx);
+        return { q, idx, picked, isCorrect, isTrap, isFlagged };
+      }).filter(item => {
+        if (state.reviewFilter === "missed") return !item.isCorrect;
+        if (state.reviewFilter === "traps") return item.isTrap;
+        if (state.reviewFilter === "flagged") return item.isFlagged;
+        return true;
+      });
+
+      if (!items.length) {
+        list.innerHTML = `<div class="stat-box" style="text-align:center;">No questions match this filter.</div>`;
+        return;
+      }
+
+      list.innerHTML = items.map(item => {
+        const badge = item.isCorrect
+          ? `<span class="badge badge-green">Correct</span>`
+          : item.isTrap
+            ? `<span class="badge badge-amber">Confuser Trap Picked</span>`
+            : `<span class="badge badge-red">${item.picked ? "Incorrect" : "Unanswered"}</span>`;
+        return `
+          <div class="review-item stack-sm">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;">
+              <span style="font-size:12px;font-weight:700;color:#64748b;">Q${item.idx + 1} · ${item.q.unit}</span>
+              ${badge}
+            </div>
+            <div style="font-weight:600;color:#0f172a;">${escapeHTML(item.q.q)}</div>
+            ${!item.isCorrect && item.picked ? `<div class="feedback-box fb-err"><strong>Your Answer:</strong> ${escapeHTML(item.picked.text)}</div>` : ""}
+            <div class="feedback-box fb-ok"><strong>Correct Answer:</strong> ${escapeHTML(item.q.correct)}</div>
+            <div style="font-size:12.5px;color:#334155;"><strong>Explanation:</strong> ${escapeHTML(item.q.explanation)}</div>
+            <div class="feedback-box fb-trap"><strong>Confuser Trap to Watch:</strong> ${escapeHTML(item.q.trap)}</div>
+          </div>`;
+      }).join("");
+    }
+
+    document.getElementById("btnStartExam").addEventListener("click", () => startExam(BANK_70));
+    document.getElementById("btnPiperPlayPause").addEventListener("click", () => {
+      const player = document.getElementById("piperAudioPlayer");
+      const btn = document.getElementById("btnPiperPlayPause");
+      if (!player || !player.src) return;
+      if (player.paused) { player.play().catch(() => {}); btn.textContent = "Pause"; }
+      else { player.pause(); btn.textContent = "Resume"; }
+    });
+    document.getElementById("btnPiperReplay").addEventListener("click", () => {
+      const q = state.examQuestions[state.currentIndex];
+      if (q) speakWithPiper(q.q);
+    });
+    document.getElementById("btnRevealAll").addEventListener("click", revealAllWords);
+
+    document.getElementById("btnToggleAllBoosters").addEventListener("click", () => {
+      const chks = Array.from(document.querySelectorAll(".booster-chk"));
+      const anyOff = chks.some(c => !c.checked);
+      chks.forEach(c => { c.checked = anyOff; });
+      const sizeSel = document.getElementById("optSessionSize");
+      if (anyOff && sizeSel.value === "70") sizeSel.value = "15";
+      else if (!anyOff) sizeSel.value = "70";
+      document.getElementById("btnToggleAllBoosters").textContent = anyOff
+        ? "Turn All Memory Boosters OFF"
+        : "Turn All Memory Boosters ON";
+    });
+
+    document.getElementById("optMicroSprint").addEventListener("change", e => {
+      const sizeSel = document.getElementById("optSessionSize");
+      if (e.target.checked && sizeSel.value === "70") sizeSel.value = "15";
+      else if (!e.target.checked && (sizeSel.value === "10" || sizeSel.value === "15")) sizeSel.value = "70";
+    });
+
+    document.getElementById("confidenceRow").addEventListener("click", e => {
+      const btn = e.target.closest(".conf-pill");
+      if (!btn) return;
+      state.confidenceByQ[state.currentIndex] = btn.dataset.conf;
+      renderQuestion();
+    });
+
+    document.getElementById("blindRecallInput").addEventListener("input", e => {
+      if (e.target.value.trim().length >= 3) {
+        if (state.blindTimerHandle) { clearInterval(state.blindTimerHandle); state.blindTimerHandle = null; }
+        const btn = document.getElementById("btnRevealChoices");
+        if (btn) { btn.disabled = false; btn.textContent = "Reveal A–D Choices"; }
+      }
+    });
+    document.getElementById("btnRevealChoices").addEventListener("click", () => {
+      if (state.blindTimerHandle) { clearInterval(state.blindTimerHandle); state.blindTimerHandle = null; }
+      state.blindRevealedByQ[state.currentIndex] = true;
+      renderQuestion();
+    });
+
+    document.getElementById("livePiperVoice").addEventListener("change", e => {
+      state.piperVoice = e.target.value;
+      const q = state.examQuestions[state.currentIndex];
+      if (q && state.neuralEnabled) speakWithPiper(q.q);
+    });
+    document.getElementById("btnPrevQ").addEventListener("click", () => {
+      if (state.currentIndex > 0) { state.currentIndex--; renderQuestion(); }
+    });
+    document.getElementById("btnNextQ").addEventListener("click", () => {
+      if (state.currentIndex < state.examQuestions.length - 1) {
+        state.currentIndex++; renderQuestion();
+      } else {
+        promptSubmit();
+      }
+    });
+    document.getElementById("btnFlagQuestion").addEventListener("click", () => {
+      if (state.flagged.has(state.currentIndex)) state.flagged.delete(state.currentIndex);
+      else state.flagged.add(state.currentIndex);
+      renderQuestion();
+    });
+    document.getElementById("btnOpenNav").addEventListener("click", openNavModal);
+    document.getElementById("btnCloseNav").addEventListener("click", () => document.getElementById("navModal").classList.add("hidden"));
+    document.getElementById("btnSubmitTop").addEventListener("click", promptSubmit);
+    document.getElementById("btnModalSubmit").addEventListener("click", () => {
+      document.getElementById("navModal").classList.add("hidden");
+      promptSubmit();
+    });
+    document.getElementById("btnCancelSubmit").addEventListener("click", () => document.getElementById("confirmModal").classList.add("hidden"));
+    document.getElementById("btnConfirmSubmit").addEventListener("click", gradeExam);
+    document.getElementById("btnRetakeAll").addEventListener("click", () => discardSession());
+    document.getElementById("btnRetakeMissed").addEventListener("click", () => {
+      const missed = getMissedQuestions();
+      if (missed.length) startExam(missed, { retake: true });
+    });
+
+    document.querySelectorAll(".filter-pill").forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.reviewFilter = btn.dataset.rfilter;
+        document.querySelectorAll(".filter-pill").forEach(b => {
+          b.classList.toggle("active", b.dataset.rfilter === state.reviewFilter);
+        });
+        renderReviewList();
+        scheduleSave();
+      });
+    });
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        ["navModal", "confirmModal"].forEach(id => $(id).classList.add("hidden"));
+        return;
+      }
+      // Never hijack browser shortcuts (Ctrl+C, Cmd+D ...), key auto-repeat, or typing in a field.
+      if (state.paused || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+      if (document.getElementById("viewExam").classList.contains("hidden")) return;
+      if (!document.getElementById("navModal").classList.contains("hidden")) return;
+      if (!document.getElementById("confirmModal").classList.contains("hidden")) return;
+      const tag = document.activeElement && document.activeElement.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+      const k = e.key.toLowerCase();
+      const map = { "1": 0, "a": 0, "2": 1, "b": 1, "3": 2, "c": 2, "4": 3, "d": 3 };
+      if (k in map) {
+        const idx = state.currentIndex;
+        if (state.boosters.blindRecall && !state.blindRevealedByQ[idx]) return;
+        if (state.boosters.confidence && !state.confidenceByQ[idx]) return;
+        e.preventDefault(); selectOption(map[k]);
+      }
+      else if (e.key === "ArrowRight") { e.preventDefault(); document.getElementById("btnNextQ").click(); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); document.getElementById("btnPrevQ").click(); }
+    });
+
+    // =========================================================================
+    // RESUME WIRING + BOOT
+    // =========================================================================
+    $("btnResumeExam").addEventListener("click", () => {
+      if (state.pauseReason === "other") { location.reload(); return; }
+      resumeExam();
+    });
+    let discardTimer = null;
+    $("btnDiscardAttempt").addEventListener("click", () => {
+      const btn = $("btnDiscardAttempt");
+      if (!state.discardArmed) {                       // two-step confirm so a stray click cannot erase progress
+        state.discardArmed = true;
+        btn.textContent = "Click again to discard";
+        clearTimeout(discardTimer);
+        discardTimer = setTimeout(() => { state.discardArmed = false; btn.textContent = "Discard attempt"; }, 4000);
+        return;
+      }
+      clearTimeout(discardTimer);
+      discardSession();
+    });
+    $("timerDisplay").addEventListener("click", () => pauseExam("manual"));
+
+    // Any interaction counts as activity for the idle auto-pause.
+    ["pointerdown", "keydown", "touchstart", "wheel", "scroll", "mousemove"].forEach(ev =>
+      window.addEventListener(ev, () => { state.lastActivityAt = Date.now(); }, { passive: true, capture: true }));
+
+    // Save whenever the page might go away (tab switch, app switch, close, reload, tab freeze/discard).
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) { flushSave(); return; }
+      state.lastTickAt = Date.now();                   // do not charge the time the tab was hidden
+      state.lastActivityAt = Date.now();
+    });
+    window.addEventListener("pagehide", flushSave);
+    document.addEventListener("freeze", flushSave);
+
+    // Another tab saved or discarded the session: stop writing so this (older) tab can never overwrite newer progress.
+    window.addEventListener("storage", e => {
+      if (e.key !== SESSION_KEY || !state.sessionActive) return;
+      if (e.newValue !== null) {
+        // A reload also fires a storage event here (from the old page's final save). Only a snapshot that is
+        // NEWER than the newest one this page loaded or wrote can be another tab.
+        let ts = 0;
+        try { ts = JSON.parse(e.newValue).savedAt || 0; } catch (err) {}
+        if (ts <= state.savedAt) return;
+      }
+      state.saveBlocked = true;
+      if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
+      const st = $("saveStatus");
+      if (st) { st.textContent = "Updated in another tab"; st.className = "save-bad"; }
+      if (state.submitted || $("viewExam").classList.contains("hidden")) return;
+      if (state.paused) showPauseModal("other"); else pauseExam("other");
+    });
+
+    window.addEventListener("offline", () => toast("You are offline. Your progress keeps saving on this device. The neural voice may pause; question text is still shown.", 6500));
+    window.addEventListener("online", () => toast("Back online."));
+
+    // Remember start-screen settings.
+    $("viewStart").addEventListener("change", () => { savePrefs(); syncStartScreenLabels(); });
+    $("btnToggleAllBoosters").addEventListener("click", () => { savePrefs(); syncStartScreenLabels(); });
+
+    function restoreOnBoot() {
+      const snap = parseSession(Store.get(SESSION_KEY));
+      if (!snap) return false;
+      applySession(snap);
+      $("livePiperVoice").value = state.piperVoice;
+      $("examTotalCounter").textContent = state.examQuestions.length;
+      if (state.submitted) {
+        renderResults();
+        showScreen("viewResults");
+        return true;
+      }
+      if (state.timed && state.secondsRemaining <= 0) {
+        gradeExam();
+        return true;
+      }
+      state.paused = true;                             // never auto-start the clock or audio on a reload
+      showScreen("viewExam");
+      startClock();
+      showPauseModal("restore");
+      return true;
+    }
+
+    loadLeitner();
+    loadPrefs();
+    syncStartScreenLabels();
+    if (Store.mode !== "local") {
+      const banner = $("storageBanner");
+      banner.textContent = Store.mode === "session"
+        ? "Your browser is blocking persistent storage, so progress is only kept while this tab stays open."
+        : "Your browser is blocking storage (private mode?), so progress cannot be kept if you close or reload this page.";
+      banner.classList.remove("hidden");
+    }
+    restoreOnBoot();
+
+    // Offline support: cache the app so the page itself reloads without a connection.
+    if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").then(reg => {
+          reg.addEventListener("updatefound", () => {
+            const worker = reg.installing;
+            if (!worker) return;
+            worker.addEventListener("statechange", () => {
+              if (worker.state === "installed" && navigator.serviceWorker.controller) {
+                toast("A new version was downloaded and will be used next time you open the site.", 6500);
+              }
+            });
+          });
+        }).catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
