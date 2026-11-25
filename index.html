@@ -505,6 +505,13 @@
     @media (max-width: 520px) {
       .topbar-inner:has(#examHudControls:not(.hidden)) .brand-title { display: none; }
     }
+    /* iOS Safari zooms the whole page when an input/select with text smaller than 16px gets focus, and it stays
+       zoomed afterwards. 16px on touch screens prevents that without disabling pinch-zoom (which hurts accessibility). */
+    @media (pointer: coarse), (max-width: 900px) {
+      .recall-input, .audio-select, select, input[type="text"], textarea { font-size: 16px; }
+    }
+    /* No double-tap-to-zoom delay/zoom on controls; pinch-zoom still works. */
+    button, select, input, .opt-btn, .nav-cell, .conf-pill { touch-action: manipulation; }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; scroll-behavior: auto !important; }
     }
