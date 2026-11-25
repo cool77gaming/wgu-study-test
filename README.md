@@ -35,6 +35,13 @@ Notes:
   Clearing site data deletes it. Safari may purge data for sites not visited in 7 days.
 - Private/incognito windows may block storage; the app shows a warning and still works, but cannot keep progress.
 
+## Answering
+
+Your first answer is final. Tap an option and you have 3 seconds to tap a different one (a mis-tap fix) or tap the
+same one again to lock it in at once. Nothing is revealed during those 3 seconds; when the answer locks you get
+feedback. Scores, spaced-repetition boxes and "re-queue on a miss" all use that locked answer. Keyboard: A–D (or 1–4)
+picks, the same key again locks.
+
 ## Neural voice
 
 The optional "Piper" reader loads its libraries (pinned versions) from jsDelivr/cdnjs and a ~60 MB voice model from

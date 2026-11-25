@@ -512,6 +512,24 @@
     }
     /* No double-tap-to-zoom delay/zoom on controls; pinch-zoom still works. */
     button, select, input, .opt-btn, .nav-cell, .conf-pill { touch-action: manipulation; }
+    /* First answer is final: a short grace window lets you fix a mis-tap, then the answer locks. */
+    .lock-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      color: #78350f;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .lock-bar.hidden { display: none !important; }
+    .opt-btn.locked { cursor: default; }
+    .opt-btn.locked:not(.correct):not(.wrong):not(.trap):not(.selected):hover { border-color: #cbd5e1; background: #fff; }
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; scroll-behavior: auto !important; }
     }
@@ -527,7 +545,7 @@
       </div>
       <div id="examHudControls" class="hidden hud-controls">
         <button id="timerDisplay" type="button" class="timer-pill" title="Pause exam" aria-label="Pause exam">120:00</button>
-        <button id="btnOpenNav" class="btn btn-sm btn-nav">Grid (<span id="navAnsweredCount">0</span>/70)</button>
+        <button id="btnOpenNav" class="btn btn-sm btn-nav">Grid (<span id="navAnsweredCount">0</span>/<span id="navTotalCount">70</span>)</button>
         <button id="btnSubmitTop" class="btn btn-sm btn-success">Submit</button>
       </div>
     </div>
@@ -672,6 +690,10 @@
         </div>
 
         <div id="examOptionsList" class="stack-sm"></div>
+        <div id="lockBar" class="hidden lock-bar" role="status">
+          <span>Locking in your answer in <strong id="lockCount">3</strong>s. Tap a different option to change it, or tap the same one to lock it in now.</span>
+          <button id="btnLockNow" type="button" class="btn btn-sm btn-primary">Lock in now</button>
+        </div>
         <div id="instantFeedbackBox" class="hidden feedback-box stack-sm"></div>
         <div class="footer-nav">
           <button id="btnPrevQ" class="btn btn-outline">&larr; Previous</button>
@@ -685,7 +707,7 @@
     <div id="navModal" class="hidden modal-backdrop">
       <div class="modal-panel stack-md">
         <div style="display:flex;align-items:center;justify-content:space-between;">
-          <h2>Question Navigator (1–70)</h2>
+          <h2>Question Navigator (1–<span id="navTotalHeading">70</span>)</h2>
           <button id="btnCloseNav" class="btn btn-sm btn-outline">Close</button>
         </div>
         <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:#475569;font-weight:600;">
@@ -840,6 +862,9 @@
       savedAt: 0,
       finishedAt: 0,
       blindArmedIdx: -1,
+      pending: null,          // { idx, opt }: a tentative pick that has not locked in yet (not saved)
+      pendingHandle: null,
+      pendingLeft: 0,
       // --- neural reader ---
       synthChain: Promise.resolve(),
       audioCache: new Map(),
@@ -1245,6 +1270,11 @@
       const isLast = idx === total - 1;
       const baseLabel = isLast ? "Review & Submit" : "Next →";
 
+      if (state.pending && state.pending.idx === idx && chosen === undefined) {
+        nextBtn.disabled = true;
+        nextBtn.textContent = "Locking in…";
+        return;
+      }
       if (state.nextLockSeconds > 0) {
         nextBtn.disabled = true;
         return;
@@ -1590,6 +1620,7 @@
 
     function pauseExam(reason) {
       if (state.paused || state.submitted || !state.examQuestions.length || $("viewExam").classList.contains("hidden")) return;
+      commitPendingPick();                 // a pick made just before pausing counts; it cannot be re-picked after seeing feedback
       state.paused = true;
       stopPiperAudio();
       clearGateTimers();
@@ -1618,6 +1649,7 @@
       stopClock();
       stopPiperAudio();
       clearGateTimers();
+      clearPending();
       if (!state.saveBlocked) Store.remove(SESSION_KEY);   // never delete a session another tab now owns
       state.sessionActive = false;
       state.saveBlocked = false;
@@ -1696,6 +1728,7 @@
       state.secondsElapsed = 0;
       state.submitted = false;
       state.finishedAt = 0;
+      clearPending();
       state.paused = false;
       state.saveBlocked = false;
       state.sessionActive = true;
@@ -1720,6 +1753,7 @@
       const q = state.examQuestions[idx];
       const opts = state.optionsByQ[idx];
       const chosen = state.answers[idx];
+      const pending = (state.pending && state.pending.idx === idx && chosen === undefined) ? state.pending.opt : undefined;
       const answeredCount = Object.keys(state.answers).length;
 
       document.getElementById("examQNumber").textContent = `Question ${idx + 1} of ${total}`;
@@ -1760,6 +1794,8 @@
       }
       document.getElementById("examAnsweredCounter").textContent = answeredCount;
       document.getElementById("navAnsweredCount").textContent = answeredCount;
+      document.getElementById("navTotalCount").textContent = total;
+      document.getElementById("navTotalHeading").textContent = total;
 
       const flagBtn = document.getElementById("btnFlagQuestion");
       const isFlagged = state.flagged.has(idx);
@@ -1799,9 +1835,10 @@
           if (o.type === "correct") cls = "correct";
           else if (selected && o.type === "trap") cls = "trap";
           else if (selected) cls = "wrong";
-        } else if (selected) {
+        } else if (selected || pending === i) {
           cls = "selected";
         }
+        if (chosen !== undefined) cls += " locked";
         return `
           <button type="button" data-opt="${i}" class="opt-btn ${cls}" ${needsConfidence ? "disabled style=\"opacity:0.55;cursor:not-allowed;\"" : ""}>
             <span class="opt-letter">${letters[i]}</span>
@@ -1812,6 +1849,12 @@
       list.querySelectorAll(".opt-btn").forEach(btn => {
         btn.addEventListener("click", () => selectOption(Number(btn.dataset.opt)));
       });
+
+      const lockBar = document.getElementById("lockBar");
+      if (lockBar) {
+        lockBar.classList.toggle("hidden", pending === undefined);
+        updateLockBar();
+      }
 
       const fbBox = document.getElementById("instantFeedbackBox");
       if (state.instantMode && chosen !== undefined) {
@@ -1877,29 +1920,68 @@
       state.requeuedPositions = shiftSet(state.requeuedPositions);
     }
 
-    function selectOption(optIdx) {
-      const idx = state.currentIndex;
-      const firstPick = state.answers[idx] === undefined;
-      state.answers[idx] = optIdx;
-      const q = state.examQuestions[idx];
-      const isCorrect = state.optionsByQ[idx][optIdx].type === "correct";
+    // ----- First answer is final -----
+    // A tap makes a tentative pick. For PENDING_SECONDS you can tap a different option to change it (a mis-tap fix),
+    // or tap the same option again to lock it in at once. Nothing about the answer is revealed during that window,
+    // so it cannot be used to peek. When it locks, the answer is final and feedback appears.
+    const PENDING_SECONDS = 3;
+    let lockHintAt = 0;
 
-      if (firstPick) {
-        updateLeitnerRecord(q.id, isCorrect);
-        if (!isCorrect && state.boosters.requeue && !state.requeuedIds.has(q.id)) {
-          state.requeuedIds.add(q.id);
-          const insertAt = Math.min(state.examQuestions.length, idx + 4);
-          state.examQuestions.splice(insertAt, 0, q);
-          shiftIndexedState(insertAt);
-          state.optionsByQ[insertAt] = buildOptionsFor(q);
-          state.requeuedPositions.add(insertAt);
-          document.getElementById("examTotalCounter").textContent = state.examQuestions.length;
-        }
-        if (!isCorrect && state.boosters.elaboration) {
-          startNextPacingLock(6, "Study Trap vs. Rule");
-        } else if (state.boosters.pictureCue) {
-          startNextPacingLock(3, "Picture This Cue");
-        }
+    function updateLockBar() {
+      const el = document.getElementById("lockCount");
+      if (el) el.textContent = state.pendingLeft;
+    }
+
+    function clearPending() {
+      if (state.pendingHandle) { clearInterval(state.pendingHandle); state.pendingHandle = null; }
+      state.pending = null;
+    }
+
+    function selectOption(optIdx) {
+      if (state.paused || state.submitted) return;
+      const idx = state.currentIndex;
+      if (state.answers[idx] !== undefined) {              // already locked: the first pick counts
+        if (Date.now() - lockHintAt > 4000) { lockHintAt = Date.now(); toast("Answer locked: your first pick counts.", 2200); }
+        return;
+      }
+      if (state.pending && state.pending.idx === idx && state.pending.opt === optIdx) {
+        commitPendingPick();                               // same option tapped again => lock in now
+        return;
+      }
+      state.pending = { idx, opt: optIdx };
+      state.pendingLeft = PENDING_SECONDS;
+      if (state.pendingHandle) clearInterval(state.pendingHandle);
+      state.pendingHandle = setInterval(() => {
+        state.pendingLeft--;
+        if (state.pendingLeft <= 0) commitPendingPick(); else updateLockBar();
+      }, 1000);
+      renderQuestion();
+    }
+
+    function commitPendingPick() {
+      const p = state.pending;
+      if (!p) return;
+      clearPending();
+      const idx = p.idx;
+      if (state.answers[idx] !== undefined || !state.examQuestions[idx]) return;
+      state.answers[idx] = p.opt;
+      const q = state.examQuestions[idx];
+      const isCorrect = state.optionsByQ[idx][p.opt].type === "correct";
+
+      updateLeitnerRecord(q.id, isCorrect);
+      if (!isCorrect && state.boosters.requeue && !state.requeuedIds.has(q.id)) {
+        state.requeuedIds.add(q.id);
+        const insertAt = Math.min(state.examQuestions.length, idx + 4);
+        state.examQuestions.splice(insertAt, 0, q);
+        shiftIndexedState(insertAt);
+        state.optionsByQ[insertAt] = buildOptionsFor(q);
+        state.requeuedPositions.add(insertAt);
+        document.getElementById("examTotalCounter").textContent = state.examQuestions.length;
+      }
+      if (!isCorrect && state.boosters.elaboration) {
+        startNextPacingLock(6, "Study Trap vs. Rule");
+      } else if (state.boosters.pictureCue) {
+        startNextPacingLock(3, "Picture This Cue");
       }
       renderQuestion();
     }
@@ -1919,6 +2001,7 @@
 
       grid.querySelectorAll(".nav-cell").forEach(b => {
         b.addEventListener("click", () => {
+          commitPendingPick();
           state.currentIndex = Number(b.dataset.jump);
           document.getElementById("navModal").classList.add("hidden");
           renderQuestion();
@@ -1928,6 +2011,7 @@
     }
 
     function promptSubmit() {
+      commitPendingPick();
       const total = state.examQuestions.length;
       const answered = Object.keys(state.answers).length;
       const unanswered = total - answered;
@@ -1939,6 +2023,7 @@
 
     function gradeExam() {
       if (state.submitted) return;
+      commitPendingPick();
       stopClock();
       clearGateTimers();
       stopPiperAudio();
@@ -2132,8 +2217,10 @@
       if (q && state.neuralEnabled) speakWithPiper(q.q);
     });
     document.getElementById("btnPrevQ").addEventListener("click", () => {
+      commitPendingPick();
       if (state.currentIndex > 0) { state.currentIndex--; renderQuestion(); }
     });
+    document.getElementById("btnLockNow").addEventListener("click", () => commitPendingPick());
     document.getElementById("btnNextQ").addEventListener("click", () => {
       if (state.currentIndex < state.examQuestions.length - 1) {
         state.currentIndex++; renderQuestion();
@@ -2224,12 +2311,13 @@
 
     // Save whenever the page might go away (tab switch, app switch, close, reload, tab freeze/discard).
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) { flushSave(); return; }
+      if (document.hidden) { commitPendingPick(); flushSave(); return; }
       state.lastTickAt = Date.now();                   // do not charge the time the tab was hidden
       state.lastActivityAt = Date.now();
     });
-    window.addEventListener("pagehide", flushSave);
-    document.addEventListener("freeze", flushSave);
+    const commitAndSave = () => { commitPendingPick(); flushSave(); };   // a pick made just before leaving still counts
+    window.addEventListener("pagehide", commitAndSave);
+    document.addEventListener("freeze", commitAndSave);
 
     // Another tab saved or discarded the session: stop writing so this (older) tab can never overwrite newer progress.
     window.addEventListener("storage", e => {
